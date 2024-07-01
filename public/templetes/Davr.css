@@ -1,0 +1,178 @@
+/* @page {
+    size: 7in 9.25in;
+    margin: 27mm 16mm 27mm 16mm;
+}
+@media print {
+    body{
+        width: 21cm;
+        height: 29.7cm;
+        margin: 30mm 45mm 30mm 45mm; 
+   } 
+}
+
+html,body{
+    height:297mm;
+    width:210mm;
+}
+
+
+/* #table{
+    border-collapse:collapse;
+    text-align: center;
+    margin-top:20px;
+
+}
+#th{
+    padding:10px;
+    text-align: center;
+    
+}
+.th{
+    background-color: rgb(211, 208, 205);
+    text-align: center;
+
+} */ 
+
+
+
+
+
+
+
+
+
+
+
+
+body {
+    background: rgb(204,204,204); 
+  }
+  page {
+    background: white;
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 0.5cm;
+    box-shadow: 0 0 0.5cm rgba(0,0,0,0.5);
+  }
+  page[size="A4"] {  
+    width: 21cm;
+    height: 29.7cm; 
+  }
+  page[size="A4"]{
+    width: 29.7cm;
+   
+  }
+  @media print {
+    body, page {
+      margin: 0;
+      box-shadow: 0;
+    }
+  } 
+.premium{
+width: 140px;
+height:60px;
+}
+.davr11{
+  width:50%;
+  height:auto;
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+  gap:10px;
+}
+#h3{
+  text-align: center;
+  font-size:30px;
+  font-weight:700;
+}
+.p2{
+  width:100%;
+  height:auto;
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+  gap:100px;
+}
+.davre{
+  width:170px;
+  height:40px;
+  }
+  .p1{
+    width:98%;
+    height:auto;
+    padding:20px;
+box-sizing: border-box;
+  }
+.l1{
+  width:100%;
+  height:auto;
+}
+.l2{
+  width:100%;
+}
+.l3{
+  width:100%;
+}
+.table_id{
+  width:100%;
+  height:auto;
+  display: flex;
+  justify-content: end;
+}
+#table{
+  border-collapse:collapse;
+  text-align: center;
+  margin-top:20px;
+border:2px solid black;
+}
+#th{
+  padding:10px;
+  text-align: center;
+  font-weight:600;
+}
+.th{
+  background-color: rgb(211, 208, 205);
+  text-align: center;
+font-weight:600;
+} 
+.img1{
+  width:980px;
+  height:980px;
+}
+.span1{
+  width:100%;
+height:auto;
+text-align:center ;
+}
+.span{
+  text-align: center;
+}
+.img_id{
+  width:100%;
+  height:auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+  @page { size: 21cm 29.7cm; margin: 2cm }
+        p { line-height: 120%; text-align: justify; background: transparent }
+
+
+.nb{
+  width:100%;
+  height:auto;
+  display: flex;
+  gap:300px;
+}        
+.mcht{
+  width:100%;
+  height:auto;
+  text-align: center;
+}
+.predmet{
+  width:100%;
+  height:auto;
+  display: flex;
+  justify-content: center;
+ 
+}
