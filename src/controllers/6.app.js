@@ -34,6 +34,7 @@ class App {
  
 
      return res.sendFile(filepath)
+     
     } catch (error) {
       console.log(error.message);
       return next(new InternalServerError(500, error));
