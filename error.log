@@ -1,0 +1,411 @@
+/api/v1/fillial/create/___POST___1696663701895___InternalServerError___Column count doesn't match value count at row 1
+/api/v1/myid/check___POST___1696683948110___InternalServerError___Cannot read properties of null (reading 'status')
+/api/v1/myid___POST___1696683992489___InternalServerError___Request failed with status code 404
+/api/v1/myid/check___POST___1696684154315___InternalServerError___Cannot read properties of null (reading 'status')
+/api/v1/myid___POST___1696684164879___InternalServerError___Request failed with status code 404
+/api/v1/myid/check___POST___1696684228644___InternalServerError___Cannot read properties of null (reading 'status')
+/api/v1/myid___POST___1696684240961___InternalServerError___Request failed with status code 404
+/api/v1/myid___POST___1696684321911___InternalServerError___Request failed with status code 404
+/api/v1/myid___POST___1696684412574___InternalServerError___Request failed with status code 404
+/api/v1/myid___POST___1696684514882___InternalServerError___Request failed with status code 404
+/api/v1/zayavka/update/2___POST___1696685717940___InternalServerError___connect ECONNREFUSED ::1:80
+/api/v1/zayavka/update/2___POST___1696685738167___InternalServerError___connect ECONNREFUSED ::1:80
+/api/v1/zayavka/update/2___POST___1696685751207___InternalServerError___connect ECONNREFUSED ::1:80
+/api/v1/zayavka/update/2___POST___1696685964211___InternalServerError___zayavka is not defined
+/api/v1/zayavka/update/2___POST___1696685965676___InternalServerError___zayavka is not defined
+/test___GET___1696722096980___ReferenceError___request is not defined
+/test___GET___1696722123331___ReferenceError___request is not defined
+/test___GET___1696722124610___ReferenceError___request is not defined
+/test___GET___1696722132427___ReferenceError___request is not defined
+/test___GET___1696722133780___ReferenceError___request is not defined
+/test___GET___1696722211349___ReferenceError___request is not defined
+/api/v1/zayavka/update/3/___POST___1696772200497___InternalServerError___Data truncated for column 'max_amount' at row 1
+/api/v1/zayavka/getAll/___GET___1696799247466___InternalServerError___Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ',step>0 ORDER BY id DESC' at line 1
+/api/v1/zayavka/update/3/___POST___1696834379078___UnAvailableError___User is unavailable
+/api/v1/zayavka/update/3/___POST___1696834498281___InternalServerError___Cannot read properties of undefined (reading 'passport')
+/api/v1/zayavka/update/3/___POST___1696834572996___InternalServerError___Cannot read properties of undefined (reading 'passport')
+/api/v1/zayavka/update/3/___POST___1696834662331___InternalServerError___Cannot read properties of undefined (reading 'passport')
+/api/v1/zayavka/update/3/___POST___1696834747639___InternalServerError___Cannot read properties of undefined (reading 'passport')
+/api/v1/zayavka/update/3/___POST___1696834799498___UnAvailableError___User is unavailable
+/api/v1/zayavka/update/3/___POST___1696834887204___UnAvailableError___User is unavailable
+/api/v1/zayavka/update/3/___POST___1696834909226___UnAvailableError___User is unavailable
+/api/v1/zayavka/update/3/___POST___1696834958459___UnAvailableError___User is unavailable
+/api/v1/zayavka/update/3/___POST___1696835003807___UnAvailableError___User is unavailable
+/api/v1/zayavka/update/3/___POST___1696835359238___UnAvailableError___User is unavailable
+/api/v1/zayavka/update/3/___POST___1696835421151___UnAvailableError___User is unavailable
+/api/v1/zayavka/update/3/___POST___1696835507945___UnAvailableError___User is unavailable
+/api/v1/zayavka/update/3/___POST___1696835522646___UnAvailableError___User is unavailable
+/api/v1/zayavka/update/3/___POST___1696835810631___UnAvailableError___User is unavailable
+/api/v1/zayavka/update/3/___POST___1696844156799___InternalServerError___Request failed with status code 415
+/api/v1/zayavka/update/3/___POST___1696844221474___InternalServerError___error.message
+/api/v1/zayavka/update/3/___POST___1696844575678___InternalServerError___Request failed with status code 404
+/api/v1/zayavka/update/3/___POST___1696844604808___InternalServerError___error.message
+/api/v1/zayavka/update/3/___POST___1696845370439___InternalServerError___Request failed with status code 401
+/api/v1/zayavka/update/3/___POST___1696845448489___InternalServerError___Request failed with status code 401
+/api/v1/zayavka/update/3/___POST___1696845622119___InternalServerError___Request failed with status code 401
+/api/v1/zayavka/update/3/___POST___1696845786606___InternalServerError___Request failed with status code 401
+/api/v1/zayavka/update/3/___POST___1696847267745___InternalServerError___error.message
+/api/v1/zayavka/update/3/___POST___1696847408773___InternalServerError___error.message
+/api/v1/zayavka/update/3/___POST___1696847423816___InternalServerError___error.message
+/api/v1/zayavka/update/3/___POST___1696847477850___InternalServerError___error.message
+/api/v1/zayavka/update/3/___POST___1696847811346___InternalServerError___error.message
+/api/v1/zayavka/update/3/___POST___1696847907057___InternalServerError___Request failed with status code 401
+/api/v1/zayavka/update/3/___POST___1696848335174___InternalServerError___error.message
+/api/v1/zayavka/update/3/___POST___1696849246649___InternalServerError___error.message
+/api/v1/zayavka/update/3/___POST___1696850438332___InternalServerError___Request failed with status code 413
+/api/v1/myid/check___POST___1696930476643___InternalServerError___Cannot read properties of null (reading 'finished_time')
+/api/v1/zayavka/update/2/___POST___1696931334106___UnAvailableError___Пользователю не предоставлено разрешение
+/api/v1/zayavka/update/2/___POST___1696931336933___UnAvailableError___Пользователю не предоставлено разрешение
+/api/v1/zayavka/update/2/___POST___1696931339186___UnAvailableError___Пользователю не предоставлено разрешение
+/api/v1/zayavka/update/2/___POST___1696931343030___UnAvailableError___Пользователю не предоставлено разрешение
+/api/v1/zayavka/update/2/___POST___1696931375094___UnAvailableError___Пользователю не предоставлено разрешение
+/api/v1/zayavka/update/2/___POST___1696931388527___UnAvailableError___Пользователю не предоставлено разрешение
+/api/v1/zayavka/update/2/___POST___1696931511703___UnAvailableError___Пользователю не предоставлено разрешение
+/api/v1/myid___POST___1696940769913___InternalServerError___Request failed with status code 400
+/api/v1/myid___POST___1696941073764___InternalServerError___Request failed with status code 400
+/api/v1/zayavka/update/7/___POST___1696948358550___InternalServerError___Cannot read properties of null (reading 'passport')
+/api/v1/zayavka/update/7/___POST___1696948390821___InternalServerError___Cannot read properties of null (reading 'passport')
+/api/v1/zayavka/update/7/___POST___1696948426293___InternalServerError___Cannot read properties of null (reading 'passport')
+/api/v1/zayavka/update/7/___POST___1696948457041___InternalServerError___Cannot read properties of null (reading 'passport')
+/api/v1/myid/___POST___1697053818683___InternalServerError___Request failed with status code 400
+/api/v1/myid/___POST___1697053971185___InternalServerError___Request failed with status code 400
+/api/v1/myid/___POST___1697053999109___InternalServerError___Request failed with status code 400
+/api/v1/myid/___POST___1697054034729___InternalServerError___Request failed with status code 400
+/api/v1/myid/___POST___1697054042232___InternalServerError___Request failed with status code 400
+/api/v1/myid/___POST___1697054067995___InternalServerError___Request failed with status code 400
+/api/v1/myid/___POST___1697054085572___InternalServerError___Request failed with status code 400
+/api/v1/myid/___POST___1697054147708___InternalServerError___Request failed with status code 400
+/api/v1/myid___POST___1697081315006___InternalServerError___Request failed with status code 403
+/api/v1/myid___POST___1697081487225___InternalServerError___Request failed with status code 403
+/api/v1/zayavka/update/3___POST___1697227465852___InternalServerError___Data truncated for column 'max_amount' at row 1
+/api/v1/zayavka/update/7___POST___1697227551206___InternalServerError___You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'HOUR WHERE id = 8' at line 1
+/api/v1/zayavka/update/finish___POST___1697227609666___InternalServerError___You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'WHERE id = 8' at line 1
+/api/v1/zayavka/getAll/___GET___1697945503080___InternalServerError___Error: Table 'premiumdb.zayavka' doesn't exist
+/api/v1/zayavka/getAll/___GET___1697945540011___InternalServerError___Error: Table 'premiumdb.zayavka' doesn't exist
+/api/v1/zayavka/update/2/___POST___1697948757194___InternalServerError___You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'l tumani Ichki ishlar boshqarmasi',address='Buxoro viloyati, Qorako'l tumani, ar' at line 1
+/api/v1/zayavka/cancel_by_client___POST___1698337620688___InternalServerError___Cannot read properties of undefined (reading 'role')
+/api/v1/zayavka/cancel_by_client___POST___1698337750653___InternalServerError___Cannot read properties of undefined (reading 'constructor')
+/api/v1/zayavka/cancel_by_client___POST___1698337752089___InternalServerError___Cannot read properties of undefined (reading 'constructor')
+/api/v1/zayavka/cancel_by_client___POST___1698337784206___InternalServerError___Cannot read properties of undefined (reading 'constructor')
+/api/v1/zayavka/percents/2___GET___1698567301643___InternalServerError___TypeError: Cannot read properties of null (reading 'expired_months')
+/api/v1/zayavka/percents/4___GET___1698567306158___InternalServerError___TypeError: Cannot read properties of null (reading 'expired_months')
+/api/v1/zayavka/percents/3___GET___1698567437889___InternalServerError___TypeError: Cannot read properties of null (reading 'expired_months')
+/api/v1/scoring/result/___POST___1699602610740___InternalServerError___Cannot read properties of undefined (reading 'split')
+/api/v1/scoring/result/___POST___1699602629092___InternalServerError___Cannot read properties of undefined (reading 'split')
+/api/v1/scoring/result/___POST___1699602670366___InternalServerError___Unknown column 'undefined' in 'where clause'
+/api/v1/scoring/result/___POST___1699602671668___InternalServerError___Unknown column 'undefined' in 'where clause'
+/api/v1/scoring/result/___POST___1699602690260___InternalServerError___Unknown column 'undefined' in 'where clause'
+/api/v1/scoring/result/___POST___1699602717574___InternalServerError___Unknown column 'undefined' in 'where clause'
+/api/v1/scoring/result/___POST___1699602735480___InternalServerError___Unknown column 'undefined' in 'where clause'
+/api/v1/zayavka/getAll___GET___1700726353859___InternalServerError___Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'WHERE fillial_id=1' at line 1
+/api/v1/zayavka/getAll___GET___1700726407243___InternalServerError___Error: Unknown column 'fillial_id' in 'where clause'
+/api/v1/zayavka/getAll___GET___1700726408416___InternalServerError___Error: Unknown column 'fillial_id' in 'where clause'
+/api/v1/zayavka/getAll___GET___1700726435403___InternalServerError___Error: Unknown column 'fillial_id' in 'where clause'
+/api/v1/fillial/getAll___GET___1700733951414___InternalServerError___Cannot read properties of undefined (reading 'role')
+/api/v1/fillial/getAll___GET___1700733978145___InternalServerError___Cannot read properties of undefined (reading 'role')
+/api/v1/fillial/getAll___GET___1700734030985___InternalServerError___Cannot read properties of undefined (reading 'role')
+/api/v1/merchant/getAll___GET___1700737698027___InternalServerError___ForbiddenError is not defined
+/api/v1/merchant/getAll___GET___1700737741051___InternalServerError___Cannot read properties of undefined (reading 'role')
+/api/v1/fillial/getAll___GET___1700737777238___InternalServerError___ForbiddenError is not defined
+/api/v1/fillial/getAll___GET___1700737818842___InternalServerError___ForbiddenError is not defined
+/api/v1/fillial/getAll___GET___1700737819655___InternalServerError___ForbiddenError is not defined
+/api/v1/myid/image___POST___1702465002195___InternalServerError___Cannot read properties of undefined (reading 'buffer')
+/api/v1/myid/image___POST___1702465028960___InternalServerError___Cannot read properties of undefined (reading 'image')
+/api/v1/myid/image___POST___1702465149771___InternalServerError___Cannot read properties of undefined (reading 'image')
+/api/v1/myid/image___POST___1702465159676___InternalServerError___Cannot read properties of undefined (reading 'image')
+/api/v1/myid/image___POST___1702465217020___InternalServerError___Cannot read properties of undefined (reading 'toString')
+/api/v1/myid/image___POST___1702465230879___InternalServerError___Cannot read properties of undefined (reading 'buffer')
+/api/v1/myid/image___POST___1702465245727___InternalServerError___Cannot read properties of undefined (reading 'buffer')
+/api/v1/myid/image___POST___1702465258474___InternalServerError___Cannot read properties of undefined (reading 'buffer')
+/api/v1/myid/image___POST___1702465276848___InternalServerError___Cannot read properties of undefined (reading 'buffer')
+/api/v1/myid/image___POST___1702465277710___InternalServerError___Cannot read properties of undefined (reading 'buffer')
+/api/v1/myid/image___POST___1702465293963___InternalServerError___Cannot read properties of undefined (reading 'buffer')
+/api/v1/myid/image___POST___1702465400792___InternalServerError___Cannot read properties of undefined (reading 'buffer')
+/api/v1/myid/image___POST___1702465402006___InternalServerError___Cannot read properties of undefined (reading 'buffer')
+/api/v1/myid/image___POST___1702465417927___InternalServerError___Cannot read properties of undefined (reading 'buffer')
+/api/v1/myid/image___POST___1702465436892___InternalServerError___Cannot read properties of undefined (reading 'buffer')
+/api/v1/myid/image___POST___1702465448208___InternalServerError___Cannot read properties of undefined (reading 'buffer')
+/api/v1/myid/image___POST___1702465503786___InternalServerError___Cannot read properties of undefined (reading 'buffer')
+/api/v1/myid/image___POST___1702465566533___InternalServerError___Cannot read properties of undefined (reading 'buffer')
+/api/v1/myid/image___POST___1702465605138___InternalServerError___Cannot read properties of undefined (reading 'buffer')
+/api/v1/myid/image___POST___1702465610484___InternalServerError___Cannot read properties of undefined (reading 'buffer')
+/api/v1/myid/image___POST___1702465611467___InternalServerError___Cannot read properties of undefined (reading 'buffer')
+/api/v1/myid/image___POST___1702465622478___InternalServerError___Cannot read properties of undefined (reading 'buffer')
+/api/v1/myid/image___POST___1702465679704___InternalServerError___Request failed with status code 400
+/api/v1/myid/image___POST___1702465880836___InternalServerError___Request failed with status code 400
+/api/v1/myid/___POST___1702532659286___InternalServerError___Request failed with status code 400
+/api/v1/myid/image/___POST___1702533077746___InternalServerError___Cannot read properties of undefined (reading 'complete')
+/api/v1/myid/image/___POST___1702533957864___MulterError___Unexpected field
+/api/v1/myid/image/___POST___1702534720034___InternalServerError___fs is not defined
+/api/v1/myid/image/___POST___1702534738665___InternalServerError___fs is not defined
+/api/v1/myid/image/___POST___1702534760669___InternalServerError___ENOENT: no such file or directory, open 'C:\Users\JONIBEK\Desktop\mysql_premiumpay\premium-pay-backend\src\controllers\public\extraImages\ronaldo.jpg'
+/api/v1/myid/image/___POST___1702534962335___InternalServerError___Request failed with status code 400
+/api/v1/myid/image/___POST___1702535233110___InternalServerError___Request failed with status code 400
+/api/v1/myid/image/___POST___1702535290477___InternalServerError___Request failed with status code 422
+/api/v1/myid/image/___POST___1702535357302___InternalServerError___Request failed with status code 422
+/api/v1/myid/image/___POST___1702535472935___InternalServerError___Request failed with status code 422
+/api/v1/myid/image/___POST___1702535498906___InternalServerError___Request failed with status code 422
+/api/v1/myid/image/___POST___1702535586531___InternalServerError___Request failed with status code 422
+/api/v1/myid/image/___POST___1702535615460___InternalServerError___Request failed with status code 422
+/api/v1/myid/image/___POST___1702535650198___InternalServerError___Request failed with status code 422
+/api/v1/myid/image/___POST___1702535652563___InternalServerError___Request failed with status code 422
+/api/v1/myid/image/___POST___1702535755182___InternalServerError___Request failed with status code 422
+/api/v1/myid/image/___POST___1702536271103___InternalServerError___Request failed with status code 405
+/api/v1/myid/image/___POST___1702536292659___InternalServerError___Request failed with status code 401
+/api/v1/myid/image/___POST___1702536419772___InternalServerError___Request failed with status code 401
+/api/v1/myid/image/___POST___1702536693439___InternalServerError___Request failed with status code 401
+/api/v1/myid/image/___POST___1702537268700___InternalServerError___Request failed with status code 401
+/api/v1/myid/image/___POST___1702537288416___InternalServerError___Request failed with status code 401
+/api/v1/myid/image/___POST___1702543408991___InternalServerError___Request failed with status code 401
+/api/v1/myid/image/___POST___1702553421112___InternalServerError___Request failed with status code 401
+/api/v1/myid/image/___POST___1702554543858___InternalServerError___Request failed with status code 401
+/api/v1/myid/image/___POST___1702554580943___InternalServerError___Request failed with status code 401
+/api/v1/myid/image/___POST___1702554595091___InternalServerError___Request failed with status code 401
+/api/v1/myid/image/___POST___1702556025801___InternalServerError___connect ETIMEDOUT 185.8.213.29:443
+/api/v1/myid/image/___POST___1702556055082___InternalServerError___connect ETIMEDOUT 185.8.213.29:443
+/api/v1/myid/image/___POST___1702556103713___InternalServerError___connect ETIMEDOUT 185.8.213.29:443
+/api/v1/myid/image/___POST___1702556210422___InternalServerError___connect ETIMEDOUT 185.8.213.29:443
+/api/v1/myid/image/___POST___1702556287368___InternalServerError___Request failed with status code 401
+/api/v1/myid/image/___POST___1702556300871___InternalServerError___Request failed with status code 401
+/api/v1/myid/image/___POST___1702556365492___InternalServerError___Request failed with status code 401
+/api/v1/myid/image/___POST___1702556368008___InternalServerError___Request failed with status code 401
+/api/v1/myid/image/___POST___1702556436830___InternalServerError___Request failed with status code 401
+/api/v1/myid/image/___POST___1702556464789___InternalServerError___Request failed with status code 401
+/api/v1/myid/image/___POST___1702556467286___InternalServerError___Request failed with status code 401
+/api/v1/myid/image/___POST___1702556497404___InternalServerError___Request failed with status code 401
+/api/v1/myid/image/___POST___1702556499304___InternalServerError___Request failed with status code 401
+/api/v1/myid/image/___POST___1702556531895___InternalServerError___Request failed with status code 401
+/api/v1/myid/image/___POST___1702556542951___InternalServerError___Request failed with status code 401
+/api/v1/myid/image/___POST___1702556544715___InternalServerError___Request failed with status code 401
+/api/v1/myid/image/___POST___1702561389717___InternalServerError___Data after transformation must be a string, an ArrayBuffer, a Buffer, or a Stream
+/api/v1/myid/image/___POST___1702563441554___InternalServerError___Invalid status code: undefined
+/api/v1/myid/image/___POST___1702564532755___InternalServerError___Request failed with status code 404
+
+/api/v1/support___POST___1702980786181___InternalServerError___Request failed with status code 400
+/api/v1/support___POST___1702980816813___InternalServerError___Request failed with status code 400
+/api/v1/support___POST___1702980865074___InternalServerError___Request failed with status code 400
+/api/v1/support___POST___1702980866532___InternalServerError___Request failed with status code 400
+/api/v1/support___POST___1702980867581___InternalServerError___Request failed with status code 400
+/api/v1/support___POST___1702980902056___InternalServerError___Request failed with status code 400
+/api/v1/support___POST___1702980917617___InternalServerError___Request failed with status code 400
+/api/v1/support___POST___1702981414226___InternalServerError___Request failed with status code 400
+/api/v1/support___POST___1702981562735___InternalServerError___Request failed with status code 400
+/api/v1/support___POST___1702981578227___InternalServerError___Request failed with status code 400
+/api/v1/support___POST___1702981610483___InternalServerError___Request failed with status code 400
+/api/v1/support___POST___1702981646352___InternalServerError___"" is not a function
+/api/v1/errors/mobile___POST___1703065887436___InternalServerError___Request failed with status code 400
+/api/v1/errors/mobile___POST___1703065960149___InternalServerError___Request failed with status code 400
+/api/v1/errors/mobile___POST___1703066035238___InternalServerError___Request failed with status code 400
+/api/v1/error/___POST___1703074070536___InternalServerError___"" is not a function
+/api/v1/support/___POST___1703074794415___InternalServerError___Cannot read properties of undefined (reading 'role')
+/api/v1/error___POST___1703137280384___InternalServerError___message.length is not a function
+/api/v1/error___POST___1703137321542___InternalServerError___message.length is not a function
+/api/v1/error___POST___1703137434265___InternalServerError___message.length is not a function
+/api/v1/error___POST___1703137523521___InternalServerError___message.length is not a function
+/api/v1/error___POST___1703137608706___InternalServerError___message.length is not a function
+/api/v1/error___POST___1703137635946___InternalServerError___message.length is not a function
+/api/v1/error___POST___1703137754210___InternalServerError___message.length is not a function
+/api/v1/error___POST___1703137851984___InternalServerError___message.length is not a function
+/api/v1/error___POST___1703137913386___InternalServerError___message.length is not a function
+/api/v1/error___POST___1703137989258___InternalServerError___message.length is not a function
+/api/v1/error___POST___1703138112474___InternalServerError___message.length is not a function
+/api/v1/error___POST___1703138210350___InternalServerError___message.length is not a function
+/api/v1/error___POST___1703138361259___InternalServerError___message.length is not a function
+/api/v1/error___POST___1703138402840___InternalServerError___message.length is not a function
+/api/v1/error___POST___1703138487202___InternalServerError___message.length is not a function
+/api/v1/error___POST___1703138747696___InternalServerError___message.length is not a function
+/api/v1/error___POST___1703138765331___InternalServerError___message.length is not a function
+/api/v1/error___POST___1703138826060___InternalServerError___message.length is not a function
+/api/v1/error___POST___1703138842704___InternalServerError___message.length is not a function
+/api/v1/error___POST___1703138882637___InternalServerError___message.length is not a function
+/api/v1/error___POST___1703139058428___InternalServerError___message.length is not a function
+/api/v1/error___POST___1703139079309___InternalServerError___message.length is not a function
+/api/v1/error___POST___1703139093394___InternalServerError___message.length is not a function
+/api/v1/error___POST___1703139105878___InternalServerError___message.length is not a function
+/api/v1/error___POST___1703139120722___InternalServerError___message.length is not a function
+/api/v1/error___POST___1703139122627___InternalServerError___message.length is not a function
+/api/v1/error___POST___1703139148633___InternalServerError___message.length is not a function
+/api/v1/error___POST___1703139206514___InternalServerError___message.length is not a function
+/api/v1/error___POST___1703139321572___InternalServerError___message.length is not a function
+/api/v1/error___POST___1703139399757___InternalServerError___message.length is not a function
+/api/v1/error___POST___1703140322962___InternalServerError___message.length is not a function
+/api/v1/merchant/create/___POST___1703330525926___InternalServerError___Cannot read properties of undefined (reading 'forEach')
+/api/v1/merchant/create/___POST___1703330559163___InternalServerError___Cannot read properties of undefined (reading 'forEach')
+/api/v1/merchant/create/___POST___1703330589748___InternalServerError___Cannot read properties of undefined (reading 'forEach')
+/api/v1/merchant/create/___POST___1703330651230___InternalServerError___Cannot read properties of undefined (reading 'forEach')
+/api/v1/merchant/create/___POST___1703330783415___InternalServerError___Cannot read properties of undefined (reading 'replaceAll')
+/api/v1/merchant/create/___POST___1703330857481___InternalServerError___Cannot set properties of undefined (setting 'loginName')
+/api/v1/merchant/create/___POST___1703330922910___InternalServerError___Cannot set properties of undefined (setting 'loginName')
+/api/v1/merchant/create/___POST___1703331009333___InternalServerError___Unknown column 'undefined' in 'field list'
+/api/v1/fillial/create/___POST___1703331150754___InternalServerError___Cannot read properties of undefined (reading 'replaceAll')
+/api/v1/fillial/create/___POST___1703331185976___InternalServerError___TypeError: Cannot read properties of undefined (reading 'replaceAll')
+/api/v1/zayavka/update/2___POST___1703332447808___InternalServerError___address.replaceAll is not a function
+/api/v1/zayavka/update/2___POST___1703332517060___InternalServerError___Invalid JSON text: "Invalid value." at position 1 in value for column 'Zayavka.address'.
+/api/v1/zayavka/update/2___POST___1703332635357___InternalServerError___You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '{"region":"Toshkent","city":"Chilonzor","home":"test home"}'' WHERE id = 1' at line 1
+/api/v1/zayavka/update/3___POST___1703332698498___InternalServerError___getaddrinfo ENOTFOUND md.davrbank.uz
+/api/v1/zayavka/update/3___POST___1703332748091___InternalServerError___getaddrinfo ENOTFOUND md.davrbank.uz
+/api/v1/zayavka/update/3___POST___1703333178082___InternalServerError___getaddrinfo ENOTFOUND md.davrbank.uz
+/api/v1/zayavka/update/3___POST___1703333253566___InternalServerError___getaddrinfo ENOTFOUND md.davrbank.uz
+/api/v1/zayavka/update/7___POST___1703333495851___InternalServerError___getaddrinfo ENOTFOUND md.davrbank.uz
+/api/v1/zayavka/update/7___POST___1703333525556___InternalServerError___getaddrinfo ENOTFOUND md.davrbank.uz
+/api/v1/zayavka/update/7___POST___1703333527601___InternalServerError___getaddrinfo ENOTFOUND md.davrbank.uz
+/api/v1/zayavka/update/finish___POST___1703333768655___MulterError___Unexpected field
+/api/v1/zayavka/update/finish___POST___1703333872039___MulterError___Unexpected field
+/api/v1/myid/check___POST___1703341810092___InternalServerError___TypeError: Date.now(...).getTime is not a function
+/api/v1/myid/check___POST___1703341945996___InternalServerError___TypeError: Date.now(...).getFullYear is not a function
+/api/v1/myid/check___POST___1703341987842___InternalServerError___TypeError: Date(...).getFullYear is not a function
+/api/v1/myid/check___POST___1703342053403___InternalServerError___TypeError: Date(...).getTime is not a function
+/api/v1/myid/check___POST___1703342466771___InternalServerError___TypeError: Date(...).getFullYear is not a function
+/api/v1/zayavka/update/7___POST___1703418163985___InternalServerError___Error: getaddrinfo ENOTFOUND md.davrbank.uz
+/api/v1/zayavka/update/7___POST___1703418297969___InternalServerError___Error: getaddrinfo ENOTFOUND md.davrbank.uz
+/api/v1/zayavka/update/7___POST___1703418329273___InternalServerError___Error: getaddrinfo ENOTFOUND md.davrbank.uz
+/api/v1/zayavka/update/3/___POST___1703503834187___InternalServerError___Error: getaddrinfo ENOTFOUND md.davrbank.uz
+/api/v1/zayavka/update/3/___POST___1703503902584___InternalServerError___ReferenceError: Cannot access 'zayavka' before initialization
+/api/v1/zayavka/update/3/___POST___1703503931185___InternalServerError___Error: getaddrinfo ENOTFOUND md.davrbank.uz
+/api/v1/zayavka/update/3/___POST___1703739290882___InternalServerError___Error: getaddrinfo ENOTFOUND testmd.davrbank.uz
+/api/v1/zayavka/update/3/___POST___1703739296606___InternalServerError___Error: getaddrinfo ENOTFOUND testmd.davrbank.uz
+/api/v1/scoring/result___POST___1703739421952___InternalServerError___Error: Unknown column 'undefined' in 'where clause'
+/api/v1/scoring/result___POST___1703739464335___InternalServerError___Error: Invalid JSON text: "The document root must not be followed by other values." at position 1 in value for column 'Zayavka.term'.
+/api/v1/zayavka/update/3/___POST___1703739716560___InternalServerError___Error: getaddrinfo ENOTFOUND testmd.davrbank.uz
+/api/v1/scoring/result___POST___1703739729936___InternalServerError___Error: Invalid JSON text: "The document root must not be followed by other values." at position 1 in value for column 'Zayavka.term'.
+/api/v1/zayavka/update/3/___POST___1703739876584___InternalServerError___Error: getaddrinfo ENOTFOUND testmd.davrbank.uz
+/api/v1/zayavka/update/3/___POST___1703739880059___InternalServerError___Error: getaddrinfo ENOTFOUND testmd.davrbank.uz
+/api/v1/zayavka/update/3/___POST___1703739886364___InternalServerError___Error: getaddrinfo ENOTFOUND testmd.davrbank.uz
+/api/v1/zayavka/percents/1___GET___1703740137780___InternalServerError___TypeError: Cannot read properties of null (reading 'expired_months')
+/api/v1/merchant/create/___POST___1703740394698___InternalServerError___TypeError: Cannot read properties of undefined (reading 'forEach')
+/api/v1/zayavka/update/3___POST___1703927708882___InternalServerError___TypeError: Cannot read properties of null (reading 'map')
+/api/v1/zayavka/update/3___POST___1703927741649___InternalServerError___TypeError: Cannot read properties of null (reading 'map')
+/api/v1/zayavka/update/3___POST___1703927769755___InternalServerError___TypeError: Cannot read properties of null (reading 'map')
+/api/v1/myid___POST___1706253601269___InternalServerError___error
+/api/v1/myid___POST___1706253790303___InternalServerError___ReferenceError: birthDate is not defined
+/api/v1/myid___POST___1706254137309___InternalServerError___AxiosError: Request failed with status code 404
+/api/v1/myid___POST___1706254198179___InternalServerError___Error: connect ECONNREFUSED 185.8.213.29:443
+/api/v1/myid___POST___1706254355851___InternalServerError___AxiosError: Request failed with status code 400
+/api/v1/myid___POST___1706254379566___InternalServerError___AxiosError: Request failed with status code 400
+/api/v1/myid___POST___1706254646935___InternalServerError___AxiosError: Request failed with status code 400
+/api/v1/myid___POST___1706254902479___InternalServerError___Error: connect ECONNREFUSED 185.8.213.29:443
+/api/v1/myid___POST___1706255006642___InternalServerError___Error: connect ECONNREFUSED 185.8.213.29:443
+/api/v1/myid___POST___1706255128180___InternalServerError___AxiosError: Request failed with status code 404
+/api/v1/myid___POST___1706255378964___InternalServerError___Error: connect ECONNREFUSED ::1:80
+/api/v1/myid___POST___1706255399533___InternalServerError___Error: connect ECONNREFUSED ::1:80
+/api/v1/myid___POST___1706255463252___InternalServerError___AxiosError: Request failed with status code 400
+/api/v1/myid___POST___1706255531650___InternalServerError___AxiosError: Request failed with status code 400
+/api/v1/myid___POST___1706256104500___InternalServerError___TypeError [ERR_INVALID_ARG_TYPE]: The "cb" argument must be of type function. Received undefined
+/api/v1/myid___POST___1706256158592___InternalServerError___TypeError [ERR_INVALID_ARG_TYPE]: The "cb" argument must be of type function. Received undefined
+/api/v1/myid___POST___1706256356966___InternalServerError___AxiosError: Request failed with status code 422
+/api/v1/myid___POST___1706256599226___InternalServerError___AxiosError: Request failed with status code 422
+/api/v1/myid___POST___1706256645839___InternalServerError___Error: connect ECONNREFUSED 91.212.89.136:443
+/api/v1/myid___POST___1706257219146___InternalServerError___TypeError [ERR_INVALID_ARG_TYPE]: The "cb" argument must be of type function. Received undefined
+/api/v1/myid___POST___1706257277282___InternalServerError___TypeError [ERR_INVALID_ARG_TYPE]: The "cb" argument must be of type function. Received undefined
+/api/v1/myid___POST___1706257379969___InternalServerError___TypeError [ERR_INVALID_ARG_TYPE]: The "cb" argument must be of type function. Received undefined
+/api/v1/myid___POST___1706257412526___InternalServerError___TypeError [ERR_INVALID_ARG_TYPE]: The "cb" argument must be of type function. Received undefined
+/api/v1/myid___POST___1706258422650___InternalServerError___ReferenceError: print is not defined
+/api/v1/myid___POST___1706258577396___InternalServerError___Error: ENOENT: no such file or directory, open 'C:\Users\JONIBEK\Desktop\mysql_premiumpay\premium-pay-backend\public\myid\image.png'
+/api/v1/myid___POST___1706258597181___InternalServerError___Error: ENOENT: no such file or directory, open 'C:\Users\JONIBEK\Desktop\mysql_premiumpay\premium-pay-backend\public\myid\image.png'
+/api/v1/myid___POST___1706259029210___InternalServerError___Error: ENOENT: no such file or directory, open 'C:\Users\JONIBEK\Desktop\mysql_premiumpay\premium-pay-backend\public\myid\image.png'
+/api/v1/myid___POST___1706259277377___InternalServerError___Error: ENOENT: no such file or directory, open 'C:\Users\JONIBEK\Desktop\mysql_premiumpay\premium-pay-backend\public\myid\image.png'
+/api/v1/myid___POST___1706259307394___InternalServerError___Error: ENOENT: no such file or directory, open 'C:\Users\JONIBEK\Desktop\mysql_premiumpay\premium-pay-backend\public\myid\image.png'
+/api/v1/myid___POST___1706259355498___InternalServerError___Error: ENOENT: no such file or directory, open 'C:\Users\JONIBEK\Desktop\mysql_premiumpay\premium-pay-backend\public\myid\image.png'
+/api/v1/myid___POST___1706259407628___InternalServerError___TypeError: path.join is not a constructor
+/api/v1/myid___POST___1706259425537___InternalServerError___Error: ENOENT: no such file or directory, open 'C:\Users\JONIBEK\Desktop\mysql_premiumpay\premium-pay-backend\public\myid\image.png'
+/api/v1/myid___POST___1706259703885___InternalServerError___Error: ENOENT: no such file or directory, open 'C:\Users\JONIBEK\Desktop\mysql_premiumpay\premium-pay-backend\public\myid\image.png'
+/api/v1/myid___POST___1706259842793___InternalServerError___Error: ENOENT: no such file or directory, open 'C:\public\image.png'
+/api/v1/myid___POST___1706259949277___InternalServerError___Error: ENOENT: no such file or directory, open 'C:\Users\JONIBEK\Desktop\mysql_premiumpay\premium-pay-backend\public\myid\image.png'
+/api/v1/myid___POST___1706260083005___InternalServerError___Error: ENOENT: no such file or directory, open 'C:\Users\JONIBEK\Desktop\mysql_premiumpay\premium-pay-backend\public\myid\image.png'
+/api/v1/myid___POST___1706260484717___InternalServerError___Error: connect ECONNREFUSED 91.212.89.136:443
+/api/v1/myid___POST___1706260533540___InternalServerError___Error: connect ECONNREFUSED 91.212.89.136:443
+/api/v1/myid___POST___1706260618300___InternalServerError___Не удалось подтвердить жизненность
+/api/v1/myid___POST___1706261020148___InternalServerError___Error: ENOENT: no such file or directory, open 'C:\Users\JONIBEK\Desktop\mysql_premiumpay\premium-pay-backend\public\myid\AB6935244 Fri Jan 26 2024 14:23:40 GMT+0500 (Uzbekistan Standard Time).png'
+/api/v1/myid___POST___1706261089887___InternalServerError___TypeError: (intermediate value).toDate is not a function
+/api/v1/myid___POST___1706261349382___InternalServerError___Не удалось подтвердить жизненность
+/api/v1/myid___POST___1706261366914___InternalServerError___Не удалось подтвердить жизненность
+/api/v1/myid___POST___1706261468998___InternalServerError___Не удалось подтвердить жизненность
+/api/v1/myid___POST___1706261502007___InternalServerError___Не удалось подтвердить жизненность
+/api/v1/myid___POST___1706261593072___InternalServerError___Error: ENOENT: no such file or directory, open 'C:\Users\JONIBEK\Desktop\mysql_premiumpay\premium-pay-backend\public\myid\AB6935244 2024-01-26 09:33:1.png'
+/api/v1/myid___POST___1706261654092___InternalServerError___Не удалось подтвердить жизненность
+/api/v1/myid___POST___1706261763968___InternalServerError___Не удалось подтвердить жизненность
+/api/v3/myid/check/___POST___1711701618236___InternalServerError___>>> ok
+/api/v3/myid/check/___POST___1711701774038___InternalServerError___>>> ok
+/api/v3/myid/check/___POST___1711701801117___InternalServerError___>>> ok
+/api/v3/qr/validate/___POST___1711885006045___InternalServerError___JsonWebTokenError: jwt malformed
+/api/v3/qr/validate/___POST___1711885147212___InternalServerError___JsonWebTokenError: jwt malformed
+/api/v3/qr/validate/___POST___1711885202878___InternalServerError___JsonWebTokenError: jwt malformed
+/api/v3/qr/validate/___POST___1711885258414___JsonWebTokenError___409
+/api/v3/qr/validate/___POST___1711885319481___JsonWebTokenError___409
+/api/v3/qr/validate/___POST___1711885342224___JsonWebTokenError___JsonWebTokenError: jwt malformed
+/api/v3/qr/validate/___POST___1711885454451___JsonWebTokenError___jwt malformed
+/api/v3/qr/validate/___POST___1711885523057___JsonWebTokenError___jwt malformed
+/api/v3/qr/validate/___POST___1711885598472___JsonWebTokenError___jwt malformed
+/api/v3/qr/validate/___POST___1711885738695___JsonWebTokenError___invalid signature
+/api/v3/qr/validate/___POST___1711885790634___JsonWebTokenError___invalid signature
+/api/v3/qr/validate/___POST___1711885884193___JsonWebTokenError___invalid signature
+/api/v3/qr/validate/___POST___1711885941301___JsonWebTokenError___invalid signature
+/api/v3/qr/validate/___POST___1711885950115___JsonWebTokenError___invalid signature
+/api/v3/qr/validate/___POST___1711886010515___JsonWebTokenError___invalid signature
+/api/v3/qr/validate/___POST___1711886011791___JsonWebTokenError___invalid signature
+/api/v3/qr/validate/___POST___1711886058310___JsonWebTokenError___invalid signature
+/api/v3/qr/validate/___POST___1711886059887___JsonWebTokenError___invalid signature
+/api/v3/qr/validate/___POST___1711886816774___InternalServerError___Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+/graph?authorization=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvcmRlcklkIjoiMjAiLCJpYXQiOjE3MTMzNjUwNDV9.SX3Q5eureUUEujaKnTvek0PLID3GdCugrrwWBQe3IiA___GET___1713365561895___InternalServerError___Error: ENOENT: no such file or directory, open 'C:\Users\JONIBEK\Desktop\mysql_premiumpay\test-premium-pay-backend\premium-pay-backend\public\graphs\graph-undefined.pdf'
+/graph?authorization=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvcmRlcklkIjoiMjAiLCJpYXQiOjE3MTMzNjUwNDV9.SX3Q5eureUUEujaKnTvek0PLID3GdCugrrwWBQe3IiA___GET___1713365562294___InternalServerError___Error: ENOENT: no such file or directory, open 'C:\Users\JONIBEK\Desktop\mysql_premiumpay\test-premium-pay-backend\premium-pay-backend\public\graphs\graph-undefined.pdf'
+/graph?authorization=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvcmRlcklkIjoiMjAiLCJpYXQiOjE3MTMzNjUwNDV9.SX3Q5eureUUEujaKnTvek0PLID3GdCugrrwWBQe3IiA___GET___1713365569378___InternalServerError___Error: ENOENT: no such file or directory, open 'C:\Users\JONIBEK\Desktop\mysql_premiumpay\test-premium-pay-backend\premium-pay-backend\public\graphs\graph-undefined.pdf'
+/graph?authorization=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvcmRlcklkIjoiMjAiLCJpYXQiOjE3MTMzNjUwNDV9.SX3Q5eureUUEujaKnTvek0PLID3GdCugrrwWBQe3IiA___GET___1713365627240___InternalServerError___Error: ENOENT: no such file or directory, open 'C:\Users\JONIBEK\Desktop\mysql_premiumpay\test-premium-pay-backend\premium-pay-backend\public\graphs\graph-undefined.pdf'
+/graph?authorization=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvcmRlcklkIjoiMjAiLCJpYXQiOjE3MTMzNjUwNDV9.SX3Q5eureUUEujaKnTvek0PLID3GdCugrrwWBQe3IiA___GET___1713365628186___InternalServerError___Error: ENOENT: no such file or directory, open 'C:\Users\JONIBEK\Desktop\mysql_premiumpay\test-premium-pay-backend\premium-pay-backend\public\graphs\graph-undefined.pdf'
+/graph?authorization=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvcmRlcklkIjoiMjAiLCJpYXQiOjE3MTMzNjUwNDV9.SX3Q5eureUUEujaKnTvek0PLID3GdCugrrwWBQe3IiA___GET___1713365630783___InternalServerError___Error: ENOENT: no such file or directory, open 'C:\Users\JONIBEK\Desktop\mysql_premiumpay\test-premium-pay-backend\premium-pay-backend\public\graphs\graph-undefined.pdf'
+/graph?authorization=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvcmRlcklkIjoiMjAiLCJpYXQiOjE3MTMzNjUwNDV9.SX3Q5eureUUEujaKnTvek0PLID3GdCugrrwWBQe3IiA___GET___1713365631409___InternalServerError___Error: ENOENT: no such file or directory, open 'C:\Users\JONIBEK\Desktop\mysql_premiumpay\test-premium-pay-backend\premium-pay-backend\public\graphs\graph-undefined.pdf'
+/graph?authorization=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvcmRlcklkIjoiMjAiLCJpYXQiOjE3MTMzNjUwNDV9.SX3Q5eureUUEujaKnTvek0PLID3GdCugrrwWBQe3IiA___GET___1713365632023___InternalServerError___Error: ENOENT: no such file or directory, open 'C:\Users\JONIBEK\Desktop\mysql_premiumpay\test-premium-pay-backend\premium-pay-backend\public\graphs\graph-undefined.pdf'
+/graph?authorization=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvcmRlcklkIjoiMjAiLCJpYXQiOjE3MTMzNjUwNDV9.SX3Q5eureUUEujaKnTvek0PLID3GdCugrrwWBQe3IiA___GET___1713365632831___InternalServerError___Error: ENOENT: no such file or directory, open 'C:\Users\JONIBEK\Desktop\mysql_premiumpay\test-premium-pay-backend\premium-pay-backend\public\graphs\graph-undefined.pdf'
+/graph?authorization=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvcmRlcklkIjoiMjAiLCJpYXQiOjE3MTMzNjUwNDV9.SX3Q5eureUUEujaKnTvek0PLID3GdCugrrwWBQe3IiA___GET___1713365696070___InternalServerError___Error: ENOENT: no such file or directory, open 'C:\Users\JONIBEK\Desktop\mysql_premiumpay\test-premium-pay-backend\premium-pay-backend\public\graphs\graph-undefined.pdf'
+/graph?authorization=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvcmRlcklkIjoiMjAiLCJpYXQiOjE3MTMzNjUwNDV9.SX3Q5eureUUEujaKnTvek0PLID3GdCugrrwWBQe3IiA___GET___1713365800543___InternalServerError___Error: ENOENT: no such file or directory, open 'C:\Users\JONIBEK\Desktop\mysql_premiumpay\test-premium-pay-backend\premium-pay-backend\public\graphs\graph-undefined.pdf'
+/graph?authorization=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvcmRlcklkIjoiMjAiLCJpYXQiOjE3MTMzNjUwNDV9.SX3Q5eureUUEujaKnTvek0PLID3GdCugrrwWBQe3IiA___GET___1713365801732___InternalServerError___Error: ENOENT: no such file or directory, open 'C:\Users\JONIBEK\Desktop\mysql_premiumpay\test-premium-pay-backend\premium-pay-backend\public\graphs\graph-undefined.pdf'
+/graph?authorization=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvcmRlcklkIjoiMjAiLCJpYXQiOjE3MTMzNjUwNDV9.SX3Q5eureUUEujaKnTvek0PLID3GdCugrrwWBQe3IiA___GET___1713365802496___InternalServerError___Error: ENOENT: no such file or directory, open 'C:\Users\JONIBEK\Desktop\mysql_premiumpay\test-premium-pay-backend\premium-pay-backend\public\graphs\graph-undefined.pdf'
+/graph/?authorization=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvcmRlcklkIjoiMjAiLCJpYXQiOjE3MTMzNjUwNDV9.SX3Q5eureUUEujaKnTvek0PLID3GdCugrrwWBQe3IiA___GET___1713365812391___InternalServerError___Error: ENOENT: no such file or directory, open 'C:\Users\JONIBEK\Desktop\mysql_premiumpay\test-premium-pay-backend\premium-pay-backend\public\graphs\graph-undefined.pdf'
+/graph?authorization=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvcmRlcklkIjoiMjAiLCJpYXQiOjE3MTMzNjU4OTh9.c_O0vQlPa8nBAHYr-RQcdm35KOJu6JJr6eVLZqANFvs___GET___1713365917377___InternalServerError___Error: ENOENT: no such file or directory, open 'C:\Users\JONIBEK\Desktop\mysql_premiumpay\test-premium-pay-backend\premium-pay-backend\public\graphs\graph-undefined.pdf'
+/graph?authorization=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvcmRlcklkIjoiMjAiLCJpYXQiOjE3MTMzNjUwNDV9.SX3Q5eureUUEujaKnTvek0PLID3GdCugrrwWBQe3IiA___GET___1713365978982___InternalServerError___Error: ENOENT: no such file or directory, open 'C:\Users\JONIBEK\Desktop\mysql_premiumpay\test-premium-pay-backend\premium-pay-backend\public\graphs\graph-undefined.pdf'
+/graph?authorization=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvcmRlcklkIjoiMjAiLCJpYXQiOjE3MTMzNjUwNDV9.SX3Q5eureUUEujaKnTvek0PLID3GdCugrrwWBQe3IiA___GET___1713365980014___InternalServerError___Error: ENOENT: no such file or directory, open 'C:\Users\JONIBEK\Desktop\mysql_premiumpay\test-premium-pay-backend\premium-pay-backend\public\graphs\graph-undefined.pdf'
+/graph?authorization=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvcmRlcklkIjoiMjAiLCJpYXQiOjE3MTMzNjUwNDV9.SX3Q5eureUUEujaKnTvek0PLID3GdCugrrwWBQe3IiA___GET___1713365980542___InternalServerError___Error: ENOENT: no such file or directory, open 'C:\Users\JONIBEK\Desktop\mysql_premiumpay\test-premium-pay-backend\premium-pay-backend\public\graphs\graph-undefined.pdf'
+/graph?authorization=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvcmRlcklkIjoiMjAiLCJpYXQiOjE3MTMzNjUwNDV9.SX3Q5eureUUEujaKnTvek0PLID3GdCugrrwWBQe3IiA___GET___1713365980972___InternalServerError___Error: ENOENT: no such file or directory, open 'C:\Users\JONIBEK\Desktop\mysql_premiumpay\test-premium-pay-backend\premium-pay-backend\public\graphs\graph-undefined.pdf'
+/api/v3/zayavka/update/6___POST___1713764776553___InternalServerError___TypeError: Cannot read properties of null (reading 'map')
+/api/v3/zayavka/update/6___POST___1713764804392___InternalServerError___TypeError: Cannot read properties of null (reading 'map')
+/api/v3/zayavka/update/6___POST___1713764843953___InternalServerError___TypeError: Cannot read properties of null (reading 'map')
+/api/v3/zayavka/update/6___POST___1713765036900___InternalServerError___TypeError: Cannot read properties of undefined (reading 'percent')
+/api/v3/zayavka/update/6___POST___1713765039046___InternalServerError___TypeError: Cannot read properties of undefined (reading 'percent')
+/api/v3/zayavka/update/6___POST___1713765039848___InternalServerError___TypeError: Cannot read properties of undefined (reading 'percent')
+/api/v3/zayavka/update/6___POST___1713765040557___InternalServerError___TypeError: Cannot read properties of undefined (reading 'percent')
+/api/v3/zayavka/update/6___POST___1713765041341___InternalServerError___TypeError: Cannot read properties of undefined (reading 'percent')
+/graph___GET___1713873568050___InternalServerError___ReferenceError: Zayavka is not defined
+/graph___GET___1713900848374___InternalServerError___Error: Table 'premiumdb.TestZayavka' doesn't exist
+/api/v3/card/sendotp___POST___1713964983641___InternalServerError___TypeError: Cannot read properties of undefined (reading 'role')
+/api/v3/card/sendotp___POST___1713965048378___InternalServerError___TypeError: Cannot read properties of undefined (reading 'role')
+/api/v3/card/sendotp___POST___1713965169989___InternalServerError___TypeError: Cannot read properties of undefined (reading 'role')
+/api/v3/card/sendotp___POST___1713965545673___InternalServerError___TypeError: Cannot set properties of undefined (setting 'data')
+/api/v3/card/sendotp___POST___1713965591424___InternalServerError___TypeError: Cannot read properties of undefined (reading 'role')
+/api/v3/card/sendotp___POST___1713965593669___InternalServerError___TypeError: Cannot read properties of undefined (reading 'role')
+/api/v3/card/sendotp___POST___1713965661138___InternalServerError___TypeError: Cannot read properties of undefined (reading 'role')
+/api/v3/card/sendotp___POST___1713966345580___InternalServerError___Error: getaddrinfo ENOTFOUND testmd.davrbank.uz
+/api/v3/zayavka/update/1___POST___1716289121224___InternalServerError___TypeError: Cannot read properties of undefined (reading 'role')
+/api/v3/zayavka/update/2___POST___1716289183007___InternalServerError___TypeError: Cannot read properties of undefined (reading 'role')
+/api/v3/zayavka/update/3___POST___1716289246377___InternalServerError___TypeError: Cannot read properties of undefined (reading 'role')
+/api/v3/card/sendotp___POST___1716818951018___InternalServerError___TypeError: Cannot read properties of undefined (reading 'role')
+/api/v3/card/sendotp___POST___1716820009628___InternalServerError___Error: Hostname/IP does not match certificate's altnames: Host: testmd.davrbank.uz. is not in the cert's altnames: DNS:uz.my.comfolks.com
+/api/v3/zayavka/p-oferta/___GET___1719841860113___InternalServerError___Error: Cannot find module 'html'
+Require stack:
+- D:\nodework\testFapi\node_modules\express\lib\view.js
+- D:\nodework\testFapi\node_modules\express\lib\application.js
+- D:\nodework\testFapi\node_modules\express\lib\express.js
+- D:\nodework\testFapi\node_modules\express\index.js
+- D:\nodework\testFapi\app.js
+/api/v3/zayavka/p-oferta/___GET___1719842128660___InternalServerError___Error: Cannot find module 'html'
+Require stack:
+- D:\nodework\testFapi\node_modules\express\lib\view.js
+- D:\nodework\testFapi\node_modules\express\lib\application.js
+- D:\nodework\testFapi\node_modules\express\lib\express.js
+- D:\nodework\testFapi\node_modules\express\index.js
+- D:\nodework\testFapi\app.js
+/api/v3/zayavka/p-oferta/___GET___1719842362923___InternalServerError___Error: Cannot find module 'html'
+Require stack:
+- D:\nodework\testFapi\node_modules\express\lib\view.js
+- D:\nodework\testFapi\node_modules\express\lib\application.js
+- D:\nodework\testFapi\node_modules\express\lib\express.js
+- D:\nodework\testFapi\node_modules\express\index.js
+- D:\nodework\testFapi\app.js
