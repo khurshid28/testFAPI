@@ -388,3 +388,24 @@
 /api/v3/zayavka/update/3___POST___1716289246377___InternalServerError___TypeError: Cannot read properties of undefined (reading 'role')
 /api/v3/card/sendotp___POST___1716818951018___InternalServerError___TypeError: Cannot read properties of undefined (reading 'role')
 /api/v3/card/sendotp___POST___1716820009628___InternalServerError___Error: Hostname/IP does not match certificate's altnames: Host: testmd.davrbank.uz. is not in the cert's altnames: DNS:uz.my.comfolks.com
+/api/v3/zayavka/p-oferta/___GET___1719841860113___InternalServerError___Error: Cannot find module 'html'
+Require stack:
+- D:\nodework\testFapi\node_modules\express\lib\view.js
+- D:\nodework\testFapi\node_modules\express\lib\application.js
+- D:\nodework\testFapi\node_modules\express\lib\express.js
+- D:\nodework\testFapi\node_modules\express\index.js
+- D:\nodework\testFapi\app.js
+/api/v3/zayavka/p-oferta/___GET___1719842128660___InternalServerError___Error: Cannot find module 'html'
+Require stack:
+- D:\nodework\testFapi\node_modules\express\lib\view.js
+- D:\nodework\testFapi\node_modules\express\lib\application.js
+- D:\nodework\testFapi\node_modules\express\lib\express.js
+- D:\nodework\testFapi\node_modules\express\index.js
+- D:\nodework\testFapi\app.js
+/api/v3/zayavka/p-oferta/___GET___1719842362923___InternalServerError___Error: Cannot find module 'html'
+Require stack:
+- D:\nodework\testFapi\node_modules\express\lib\view.js
+- D:\nodework\testFapi\node_modules\express\lib\application.js
+- D:\nodework\testFapi\node_modules\express\lib\express.js
+- D:\nodework\testFapi\node_modules\express\index.js
+- D:\nodework\testFapi\app.js

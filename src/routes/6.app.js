@@ -27,6 +27,7 @@ const router = Router();
 router.use(checkToken);
 router.use(checkBlocked);
 
+router.get("/p-oferta", appController.publicOferta);
 router.post("/update/1",checkUser, appController.update1);
 router.post("/update/2",checkUser,default_config,ZayavkaReq.update2, appController.update2);
 router.post("/update/3",checkUser,default_config,ZayavkaReq.update3, appController.update3);

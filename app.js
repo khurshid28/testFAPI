@@ -24,7 +24,7 @@ const checkToken = require("./src/middlewares/check-token.js");
 let PREMIUM = require("./Premium-Query").PREMIUM;
 
 // PORT
-const PORT = 1212;
+const PORT = 2222;
 // app.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
 // app.use(bodyParser.json({ limit: "50mb" }));
 
@@ -205,7 +205,7 @@ app.use(logger);
 
 // testing server
 app.get("/", (req, res) => res.send("premium pay"));
-
+;
 // starting server
 app.listen(PORT, async () => {
   console.log(`server ready on port:${PORT}`);
