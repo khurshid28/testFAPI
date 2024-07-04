@@ -6,30 +6,36 @@ const {
 let axios = require("axios");
 let path = require("path");
 let fs = require("fs");
-
+let Fapi = require("../utils/fapi")
 let db = require("../config/db");
+const { param } = require("../routes/myid.js");
 class Myid {
   async getMe(req, res, next) {
     try {
       console.log(">>>>>>>>>>>>>>>>>");
+      
       let { code, base64, passport, birthDate } = req.body;
-
+      console.log("code: " + code);
+        console.log(req.body);
       if (code) {
-        let url1 = process.env.FACE_URL + "oauth2/access-token";
-        let url2 = process.env.FACE_URL + "users/me";
+        const loginData = await Fapi.login();
+        let url2 = process.env.FAPI_MYID_SDK+"?code="+code  ;
 
-        const response1 = await axios
-          .post(
-            url1,
-            {
-              grant_type: "authorization_code",
-              code: code,
-              client_id: process.env.FACE_CLIENT_ID,
-              client_secret: process.env.FACE_CLIENT_SECRET,
+      // //params: {
+      //           code,
+      //         },
+        let access_token = loginData["access_token"];
+        console.log("access_token "+access_token);
+        let response2 = await axios
+          .get(
+            url2,{
+               
             },
+
             {
+             
               headers: {
-                "Content-Type": "application/x-www-form-urlencoded",
+                Authorization: "Bearer " + access_token,
               },
             }
           )
@@ -37,41 +43,32 @@ class Myid {
           .catch((err) => {
             throw err;
           });
-
-        let access_token = response1.data["access_token"];
-
-        let response2 = await axios
-          .get(url2, {
-            headers: {
-              Authorization: "Bearer " + access_token,
-            },
-          })
-          .then((r) => r)
-          .catch((err) => {
-            throw err;
-          });
         console.log(req.body);
         console.log(response2.data);
         return res.status(200).json(response2.data);
-      } else if (base64) {
-        let response3 = await axios
-          .post("http://localhost:7070/api/v1/me", {
-            base64,
-            passport,
-            birthDate,
-          })
-          .then((res) => res)
-          .catch((err) => {
-            console.log(">>>> Test server ERROR", err.response);
-            return err.response;
-          });
 
-        return res.status(response3.status).json(response3.data);
-      } else {
-        return next(
-          new InternalServerError(500, response3.data.result_note ?? "error")
-        );
-      }
+
+      // } else if (base64) {
+      //   let response3 = await axios
+      //     .post("http://localhost:7070/api/v1/me", {
+      //       base64,
+      //       passport,
+      //       birthDate,
+      //     })
+      //     .then((res) => res)
+      //     .catch((err) => {
+      //       console.log(">>>> Test server ERROR", err.response);
+      //       return err.response;
+      //     });
+
+      //   return res.status(response3.status).json(response3.data);
+      // } else {
+      //   return next(
+      //     new InternalServerError(500, response3.data.result_note ?? "error")
+      //   );
+
+       }
+       return res.status(500).json({message:"ok"})
     } catch (error) {
       console.log(error);
       return next(new InternalServerError(500, error));
