@@ -10,7 +10,7 @@ const Storage = multer.diskStorage({
 
 const upload = multer({
   storage: Storage,
-}).single('selfie')
+}).single("selfie");
 
 
 

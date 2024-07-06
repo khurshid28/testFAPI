@@ -207,7 +207,15 @@ class App {
         birthDate,
         // IdentificationVideoBase64,
       });
-
+        var filePath = path.join(
+          __dirname,
+          "..",
+          "..",
+          "public",
+          "passports",
+          `Zayavka-${req.body.id}.png`
+        );
+      base64_decode_passport(selfie_with_passport,filePath)
       await new Promise(function (resolve, reject) {
         db.query(
           update3ZayavkaFunc({
@@ -1238,6 +1246,7 @@ function update1ZayavkaFunc(data) {
   }','Fapi') ; `;
 }
 
+
 function update2ZayavkaFunc(data) {
   let {
     id,
@@ -1318,6 +1327,17 @@ function cancelByClientZayavkaFunc(data) {
   return `update TestZayavka SET status = 'canceled_by_client', finished_time = CURRENT_TIMESTAMP ,canceled_reason='${canceled_reason}' WHERE id = ${id}`;
 }
 
+async function base64_decode_passport(base64str, filePath) {
+  let base64Image = base64str.split(";base64,")[1];
+  var bitmap = Buffer.from(base64Image.toString(), "base64");
+
+  
+  fs.writeFileSync(filePath, bitmap);
+
+  console.log("******** File created from base64 encoded string ********");
+
+
+}
 function customhashPhoneNumber(phone) {
     if (!phone ) {
       return "";
