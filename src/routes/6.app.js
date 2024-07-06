@@ -1,7 +1,7 @@
 
 const multer = require("multer");
 const Storage = multer.diskStorage({
-  destination: 'public/test-images',
+  destination: 'public/images',
   filename: (req, file,cb) =>{
     cb(null,"zayavka"+ req.body.id +".jpg")
   }
@@ -35,6 +35,20 @@ router.post("/update/3",checkUser,default_config,ZayavkaReq.update3, appControll
 router.post("/update/5",checkUser,default_config,ZayavkaReq.update5_6_7_finish, appController.update5);
 router.post("/update/6",checkUser,default_config,ZayavkaReq.update5_6_7_finish,  appController.update6);
 router.post("/update/7",checkUser,upload,default_config,ZayavkaReq.update5_6_7_finish,   appController.update7);
+router.post("/update/7",checkUser,upload,default_config,ZayavkaReq.update5_6_7_finish,   appController.update7);
+
+router.post(
+  "/confirm-code",
+  checkUser,
+  default_config,
+  appController.confirmDogovor
+);
+router.post(
+  "/send-code",
+  
+  
+  appController.sendCode
+);
 router.post("/update/finish",checkUser,default_config,ZayavkaReq.update5_6_7_finish, appController.updateFinish);
 router.post("/cancel_by_client/",checkUser,default_config,ZayavkaReq.cancel,  appController.cancel_by_client);
 // router.get("/grafik/:id",checkUser, appController.getGraphics)

@@ -47,24 +47,14 @@ module.exports = async (req, res, next) => {
       );
     });
 
-    // if (!user) {
-    //   return next(new AuthorizationError(401, "Invalid token"));
-    // }
 
-    // const reqAgent = req.headers["user-agent"];
-    // if (agent !== reqAgent) {
-    //     return next(
-    //         new ForbiddenError(403, "You can't log in different devices")
-    //     );
-    // }
-  console.log(user);
    if (user) {
      req.user = {
        id: user["id"],
        role: user["role"],
      };
    }
-   console.log(user);
+ 
     return next();
   } catch (error) {
     console.log("check token >>");

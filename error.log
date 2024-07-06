@@ -424,3 +424,51 @@ Require stack:
 /api/v3/myid/___POST___1720025630131___InternalServerError___AxiosError: Request failed with status code 400
 /api/v3/myid/___POST___1720025845633___InternalServerError___AxiosError: Request failed with status code 400
 /api/v3/myid/___POST___1720025989320___InternalServerError___AxiosError: Request failed with status code 400
+/api/v3/myid/___POST___1720070447167___InternalServerError___AxiosError: Request failed with status code 400
+/api/v3/myid/___POST___1720070538220___InternalServerError___AxiosError: Request failed with status code 400
+/api/v3/myid/___POST___1720074297546___InternalServerError___ReferenceError: data is not defined
+/api/v3/myid/___POST___1720074336770___InternalServerError___ReferenceError: access_token is not defined
+/api/v3/myid/___POST___1720074404021___InternalServerError___AxiosError: Request failed with status code 500
+/api/v3/myid/___POST___1720077727781___InternalServerError___TypeError: Cannot read properties of undefined (reading 'access_token')
+/api/v3/myid/___POST___1720078215067___InternalServerError___AxiosError: Request failed with status code 404
+/api/v3/myid/___POST___1720079414175___InternalServerError___TypeError: Cannot read properties of undefined (reading 'access_token')
+/api/v3/myid/___POST___1720079473990___InternalServerError___TypeError: Cannot read properties of undefined (reading 'toString')
+/api/v3/myid/___POST___1720079521758___InternalServerError___AxiosError: Request failed with status code 415
+/api/v3/myid/___POST___1720079777596___InternalServerError___TypeError: Cannot read properties of undefined (reading 'access_token')
+/api/v3/myid/___POST___1720079815397___InternalServerError___TypeError: Cannot read properties of undefined (reading 'access_token')
+/api/v3/myid/___POST___1720079832147___InternalServerError___Error: ENOENT: no such file or directory, open 'D:\nodework\testFAPI\public\myid\AD0176918.png'
+/api/v3/myid/___POST___1720079885112___InternalServerError___AxiosError: Request failed with status code 415
+/api/v3/myid/___POST___1720080094575___InternalServerError___TypeError: Cannot read properties of undefined (reading 'access_token')
+/api/v3/myid/___POST___1720080100582___InternalServerError___AxiosError: Request failed with status code 415
+/api/v3/myid/___POST___1720083650614___InternalServerError___TypeError: Cannot read properties of undefined (reading 'access_token')
+/api/v3/myid/___POST___1720083690255___InternalServerError___TypeError: Cannot read properties of undefined (reading 'access_token')
+/api/v3/myid/___POST___1720083775606___InternalServerError___TypeError: Cannot read properties of undefined (reading 'access_token')
+/api/v3/myid/___POST___1720083821865___InternalServerError___AxiosError: timeout of 10000ms exceeded
+/api/v3/myid/___POST___1720084051818___InternalServerError___AxiosError: timeout of 10000ms exceeded
+/api/v3/myid/___POST___1720084325330___InternalServerError___AxiosError: Request failed with status code 415
+/api/v3/myid/___POST___1720084425110___InternalServerError___AxiosError: timeout of 10000ms exceeded
+/api/v3/myid/___POST___1720084457689___InternalServerError___AxiosError: timeout of 10000ms exceeded
+/api/v3/myid/___POST___1720084483020___InternalServerError___AxiosError: Request failed with status code 500
+/api/v3/myid/___POST___1720084724239___InternalServerError___AxiosError: timeout of 10000ms exceeded
+/api/v3/myid/___POST___1720084741444___InternalServerError___AxiosError: timeout of 10000ms exceeded
+/api/v3/myid/___POST___1720084919663___InternalServerError___AxiosError: timeout of 10000ms exceeded
+/api/v3/myid/___POST___1720084941124___InternalServerError___AxiosError: timeout of 10000ms exceeded
+/api/v3/myid/___POST___1720085344382___InternalServerError___Error: read ECONNRESET
+/api/v3/myid/___POST___1720091548072___InternalServerError___AxiosError: Request failed with status code 500
+/api/v3/myid/___POST___1720091608392___InternalServerError___AxiosError: Request failed with status code 500
+/api/v3/myid/___POST___1720092086073___InternalServerError___AxiosError: Request failed with status code 500
+/api/v3/myid/___POST___1720092356243___InternalServerError___AxiosError: Request failed with status code 500
+/api/v3/myid/___POST___1720093866184___InternalServerError___AxiosError: Request failed with status code 500
+/api/v3/zayavka/p-oferta/___GET___1720094368408___InternalServerError___Error [ERR_STREAM_CANNOT_PIPE]: Cannot pipe, not readable
+/api/v3/myid/___POST___1720094447370___InternalServerError___AxiosError: Request failed with status code 503
+/api/v3/myid/___POST___1720094762280___InternalServerError___AxiosError: Request failed with status code 401
+/api/v3/myid/___POST___1720099857056___InternalServerError___AxiosError: Request failed with status code 401
+/api/v3/myid/___POST___1720099934359___InternalServerError___AxiosError: Request failed with status code 401
+/api/v3/myid/___POST___1720102209320___InternalServerError___AxiosError: Request failed with status code 401
+/api/v3/myid/___POST___1720103794514___InternalServerError___AxiosError: timeout of 10000ms exceeded
+/api/v3/myid/___POST___1720103811034___InternalServerError___AxiosError: timeout of 10000ms exceeded
+/api/v3/myid/___POST___1720105809138___InternalServerError___AxiosError: Request failed with status code 401
+/api/v3/myid/___POST___1720177356259___InternalServerError___AxiosError: Request failed with status code 401
+/api/v3/card/check___POST___1720181247238___InternalServerError___Error: connect ECONNREFUSED ::1:80
+/api/v3/myid/___POST___1720185660065___InternalServerError___AxiosError: timeout of 10000ms exceeded
+/api/v3/myid/___POST___1720189366630___InternalServerError___AxiosError: timeout of 10000ms exceeded

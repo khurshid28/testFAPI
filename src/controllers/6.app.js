@@ -7,7 +7,7 @@ const {
 } = require("../utils/errors.js");
 let db = require("../config/db");
 let pdfGenerator =require("../utils/pdf_generate")
-
+let Fapi = require("../utils/fapi");
 let axios = require("axios");
 let bot = require("../bot/bot");
 
@@ -18,29 +18,28 @@ const fs = require("fs");
 const puppeteer = require("puppeteer");
 let mime =require("mime");
 const pdf_generate = require("../utils/pdf_generate");
+const fapi = require("../utils/fapi");
 
 class App {
-  async   publicOferta(req, res, next) {
-    FapiLogin()
+  async publicOferta(req, res, next) {
+    fapi.sendOformitMessage(729);
     try {
-    let filepath = path.join(
+      let filepath = path.join(
         __dirname,
         "../",
         "../",
         "public",
         "docs",
-        `public-oferta.pdf`,
-       
-      )
- 
+        `public-oferta.pdf`
+      );
 
-     return res.sendFile(filepath)
-     
+      return res.sendFile(filepath);
     } catch (error) {
       console.log(error.message);
       return next(new InternalServerError(500, error));
     }
   }
+
   async update1(req, res, next) {
     try {
       let { fullname, passport, pinfl } = req.body;
@@ -548,11 +547,73 @@ class App {
       return next(new InternalServerError(500, error));
     }
   }
+  async sendCode(req, res, next) {
+    try {
+      let { id } = req.body;
+      let zayavka = await new Promise(function (resolve, reject) {
+        db.query(
+          `SELECT * from TestZayavka WHERE id=${req.body.id}`,
+          function (err, results, fields) {
+            console.log(err);
+            if (err) {
+              resolve(null);
+              return null;
+            }
+            if (results.length != 0) {
+              resolve(results[0]);
+            } else {
+              resolve(null);
+            }
+          }
+        );
+      });
+    return res.status(200).json({
+      message: `code sent  to ${customhashPhoneNumber(zayavka.phoneNumber)}`,
+    });
+    } catch (error) {
+      console.log(error.message);
+      return next(new InternalServerError(500, error));
+    }
+  }
+  async confirmDogovor(req, res, next) {
+    try {
+      let { id, code } = req.body;
+      if (code != "123123") {
+        return next(
+          new BadRequestError(400, "confirmation code not match !!!")
+        );
+      }
+      let zayavka = await new Promise(function (resolve, reject) {
+        db.query(
+          `SELECT * from TestZayavka WHERE id=${req.body.id}`,
+          function (err, results, fields) {
+            console.log(err);
+            if (err) {
+              resolve(null);
+              return null;
+            }
+            if (results.length != 0) {
+              resolve(results[0]);
+            } else {
+              resolve(null);
+            }
+          }
+        );
+      });
+
+      return res.status(200).json({
+        data: zayavka,
+        message: "Confirm code Successfully",
+      });
+    } catch (error) {
+      console.log(error.message);
+      return next(new InternalServerError(500, error));
+    }
+  }
 
   async updateFinish(req, res, next) {
     try {
-      // let url1 = process.env.DAVR_BASE_URL + process.env.DAVR_LOGIN;
-      // let url2 = process.env.DAVR_BASE_URL + process.env.DAVR_AGREEMENT;
+
       let { contractPdf, id, term } = req.body;
       let date = new Date();
       let singedAt = `${date.getFullYear()}-${
@@ -720,7 +781,7 @@ class App {
             }
           );
         });
-        console.log(user);
+
         zayavkalar = await new Promise(function (resolve, reject) {
           db.query(
             `SELECT * from TestZayavka WHERE fillial_id='${user.fillial_id}' ORDER BY id DESC `,
@@ -1172,9 +1233,9 @@ function update1ZayavkaFunc(data) {
   let { user_id, merchant_id, fillial_id, fullname, passport, pinfl } = data;
   fullname = `${fullname}`;
   fullname = fullname.replaceAll("'", "ʻ");
-  return `INSERT INTO TestZayavka (user_id,merchant_id,fillial_id,fullname,passport,pinfl) VALUES (${user_id},${merchant_id},${fillial_id},'${fullname}','${passport}','${
+  return `INSERT INTO TestZayavka (user_id,merchant_id,fillial_id,fullname,passport,pinfl,bank) VALUES (${user_id},${merchant_id},${fillial_id},'${fullname}','${passport}','${
     pinfl ?? ""
-  }') ; `;
+  }','Fapi') ; `;
 }
 
 function update2ZayavkaFunc(data) {
@@ -1257,6 +1318,23 @@ function cancelByClientZayavkaFunc(data) {
   return `update TestZayavka SET status = 'canceled_by_client', finished_time = CURRENT_TIMESTAMP ,canceled_reason='${canceled_reason}' WHERE id = ${id}`;
 }
 
+function customhashPhoneNumber(phone) {
+    if (!phone ) {
+      return "";
+    } else {
+      phone =phone.toString();
+      let res = phone.substring(0, 4) +
+          "(" +
+          phone.substring(4, 6) +
+          ") ***-" +
+          phone.substring(9, 11) +
+          "-" +
+          phone.substring(11, 13);
+      return res;
+    }
+  }
+
+
 function toMyString(ob) {
   if (!ob) {
     return "null";
@@ -1277,30 +1355,7 @@ function toMyString(ob) {
   return result;
 }
 
-async function FapiLogin(){
-  try {
-    const login = process.env.FAPI_LOGIN;
-     const response1 = await axios.post(
-       login,
-       {
-         client_id: process.env.CLIENT_ID,
-         grant_type: process.env.GRANT_TYPE,
-         client_secret: process.env.CLIENT_SECRET,
-         username: process.env.FAPI_USERNAME,
-         password: process.env.FAPI_PASSWORD,
-       },
-       {
-         headers: {
-           "Content-Type": "application/x-www-form-urlencoded",
-         },
-       }
-     );
-     
-    return response1.data
-  } catch (error) {
-    console.log("error to fetch ",error);
-  }
-}
+
 
 
 Date.prototype.addHours = function (h) {

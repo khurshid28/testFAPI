@@ -42,8 +42,8 @@ class Login {
           }
         );
       });
-      console.log("super admin");
-      console.log(user);
+     
+     
       if (!user)
         user = await new Promise(function (resolve, reject) {
           db.query(
@@ -82,7 +82,7 @@ class Login {
         });
 
       console.log(">>>>>>>>>>");
-      console.log(user);
+      
       if (!user) {
         user = await new Promise(function (resolve, reject) {
           db.query(

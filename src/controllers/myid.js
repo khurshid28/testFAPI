@@ -8,7 +8,10 @@ let path = require("path");
 let fs = require("fs");
 let Fapi = require("../utils/fapi")
 let db = require("../config/db");
+
+const resizeImg = require("resize-image-buffer");
 const { param } = require("../routes/myid.js");
+const { response } = require("express");
 class Myid {
   async getMe(req, res, next) {
     try {
@@ -16,24 +19,17 @@ class Myid {
       
       let { code, base64, passport, birthDate } = req.body;
       console.log("code: " + code);
-        console.log(req.body);
+      
+      const loginData = await Fapi.login();
+       let access_token = loginData["access_token"];
       if (code) {
-        const loginData = await Fapi.login();
-        let url2 = process.env.FAPI_MYID_SDK+"?code="+code  ;
-
-      // //params: {
-      //           code,
-      //         },
-        let access_token = loginData["access_token"];
-        console.log("access_token "+access_token);
+        let url2 = process.env.FAPI_MYID_SDK + "?code=" + code;
+        console.log("access_token " + access_token);
         let response2 = await axios
           .get(
-            url2,{
-               
-            },
+            url2,
 
             {
-             
               headers: {
                 Authorization: "Bearer " + access_token,
               },
@@ -43,32 +39,135 @@ class Myid {
           .catch((err) => {
             throw err;
           });
-        console.log(req.body);
+        console.log("success:");
         console.log(response2.data);
         return res.status(200).json(response2.data);
+      } else if (base64) {
+        console.log('aaa');
+        var filePath = path.join(
+          __dirname,
+          "..",
+          "..",
+          "public",
+          "myid",
+          `${req.body.passport}.png`
+        );
+        console.log(filePath);
+        let newBase64 = await base64_decode(base64, filePath);
+        let url1 = process.env.FAPI_MYID_JOB_ID
+        let url2 = process.env.FAPI_MYID_PROFILE 
+        let client_id = process.env.FAPI_MYID_CLIENT_ID; 
+         
 
+        const response1 = await axios
+          .post(
+            url1,
+            {
+              pass_data: passport,
+              // pinfl: "35614060828935",
+              birth_date: birthDate,
+              client_id: client_id,
+              // device: "string",
+              // external_id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+              photo_from_camera: {
+                front: newBase64,
+              },
+              threshold: 0.5,
+              agreed_on_terms: true,
+              is_resident: true,
+            },
+            {
+              headers: {
+                // "Content-Type": "application/x-www-form-urlencoded",
+                "Content-Type": "application/json",
+              },
+            }
+          )
+          .then((r) => r)
+          .catch((err) => {
+            throw err;
+          });
 
-      // } else if (base64) {
-      //   let response3 = await axios
-      //     .post("http://localhost:7070/api/v1/me", {
-      //       base64,
-      //       passport,
-      //       birthDate,
-      //     })
-      //     .then((res) => res)
-      //     .catch((err) => {
-      //       console.log(">>>> Test server ERROR", err.response);
-      //       return err.response;
-      //     });
+        // console.log(response1);
+        let job_id = response1.data["job_id"];
+        let response2 = await axios
+          .get(
+            url2+"?job_id="+job_id,
+            
 
-      //   return res.status(response3.status).json(response3.data);
-      // } else {
-      //   return next(
-      //     new InternalServerError(500, response3.data.result_note ?? "error")
-      //   );
+            {
+              headers: {
+                Authorization: "Bearer " + access_token,
+              },
+            }
+          )
+          .then((r) => r)
+          .catch((err) => {
+            throw err;
+          });
 
-       }
-       return res.status(500).json({message:"ok"})
+        while (response2.status != 200) {
+          response2 = await axios
+            .post(
+              url2,
+              "",
+              {
+                headers: {
+                  Authorization: `Bearer ${access_token}`,
+                  // 'Content-Type': 'application/json',
+                  "Content-Type": "text/plain",
+
+        
+                  responseType: "json",
+                  responseEncoding: "utf8",
+                },
+              },
+              {}
+            )
+            .then((r) => r)
+            .catch((err) => {
+              throw err;
+            });
+        }
+        console.log('response2: ' + response2);
+         if (response2.data.profile && response2.data.result_code != 3) {
+           let userMyIdData = await new Promise((resolve, reject) => {
+             db.query(
+               `INSERT INTO MyId (response_id,pass_seriya,comparison_value,profile) VALUES ('${
+                 response2.data.response_id
+               }', '${passport}','${
+                 response2.data.comparison_value
+               }','${JSON.stringify(response2.data.profile).replaceAll(
+                 `\^`,
+                 ""
+               )}')`,
+               function (err, results, fields) {
+                 if (err) {
+                   console.log("err >> ", err);
+                   resolve(null);
+                   // return null;
+                 }
+                 console.log("results >> ", results);
+                 if (results) {
+                   resolve("success");
+                 } else {
+                   resolve(null);
+                   // return null;
+                 }
+               }
+             );
+           });
+
+           return res.status(response2.status).json(response2.data);
+         } else {
+           return next(
+             new InternalServerError(500, response2.data.result_note ?? "error")
+           );
+         }
+        //  return res.status(response2.status).json(response2.data);
+      }
+
+        return next(new InternalServerError(500, "Myid image error"));
     } catch (error) {
       console.log(error);
       return next(new InternalServerError(500, error));
@@ -347,12 +446,29 @@ Date.daysBetween = function (date1, date2) {
   return Math.round(difference / one_day);
 };
 
-function base64_decode(base64str, filePath) {
+// function base64_decode(base64str, filePath) {
+//   let base64Image = base64str.split(";base64,")[1];
+//   var bitmap = Buffer.from(base64Image.toString(), "base64");
+
+//   fs.writeFileSync(filePath, bitmap);
+//   console.log("******** File created from base64 encoded string ********");
+// }
+
+async function base64_decode(base64str, filePath) {
   let base64Image = base64str.split(";base64,")[1];
   var bitmap = Buffer.from(base64Image.toString(), "base64");
 
-  fs.writeFileSync(filePath, bitmap);
-  console.log("******** File created from base64 encoded string ********");
-}
+  const image = await resizeImg(bitmap, {
+    width: 480,
+    height: 640,
+  });
 
+  fs.writeFileSync(filePath, image);
+
+  const newBase64 = fs.readFileSync(filePath, { encoding: "base64" });
+
+  // console.log("******** File created from base64 encoded string ********");
+  // console.log(newBase64.slice(50));
+  return "data:image/jpeg;base64," + newBase64;
+}
 module.exports = new Myid();

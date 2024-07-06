@@ -9,6 +9,7 @@ const {
 let db =require("../config/db")
 
 module.exports.default_config = async(req, res, next) => {
+  console.log(req.body);
     try {
 
        if(!req.body.id){
@@ -35,6 +36,7 @@ module.exports.default_config = async(req, res, next) => {
           }
         );
       });
+      console.log(zayavka);
       if(!zayavka ){
         return next(
             new NotFoundError(
