@@ -1121,6 +1121,7 @@ async Loan(req,res,next){
        data: result
       });
   } catch (error) {
+    console.log(error);
     return next(new InternalServerError(500,error))
   }
 

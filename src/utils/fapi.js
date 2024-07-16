@@ -151,7 +151,7 @@ class Fapi {
     }
   }
   async LoanPreview(contractId) {
-    try {
+  
       let access_token = (await this.login())["access_token"];
       let url = process.env.FAPI_PREVIEW_LOAN;
       let response = await axios.post(
@@ -165,14 +165,14 @@ class Fapi {
             "Content-Type": "application/json",
           },
         }
-      );
+      ).catch((e)=>{throw e});
    
     
       return response.data
-    } catch (error) {
+ 
       
-       throw error
-    }
+       
+    
   }
   async sendLimitMessage(id, price) {
     try {
