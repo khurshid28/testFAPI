@@ -9,7 +9,7 @@ const {
 let db =require("../config/db")
 
 module.exports.default_config = async(req, res, next) => {
-  console.log(req.body);
+  console.log('body:',req.body);
     try {
 
        if(!req.body.id){

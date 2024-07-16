@@ -1,4 +1,3 @@
-
 const {
   InternalServerError,
   ForbiddenError,
@@ -6,23 +5,25 @@ const {
   BadRequestError,
 } = require("../utils/errors.js");
 let db = require("../config/db");
-let pdfGenerator =require("../utils/pdf_generate")
+let pdfGenerator = require("../utils/pdf_generate");
 let Fapi = require("../utils/fapi");
 let axios = require("axios");
 let bot = require("../bot/bot");
-
-
+const botMessage = require("../utils/bot_messages.js");
 const ejs = require("ejs"); // 3.1.8
-const path = require("path"); 
-const fs = require("fs"); 
+const path = require("path");
+const fs = require("fs");
 const puppeteer = require("puppeteer");
-let mime =require("mime");
+let mime = require("mime");
 const pdf_generate = require("../utils/pdf_generate");
 const fapi = require("../utils/fapi");
 
+const resizeImg = require("resize-image-buffer");
 class App {
   async publicOferta(req, res, next) {
-    fapi.sendOformitMessage(729);
+    // //  let result= await fapi.scoringSend("51505045320022");
+    // await fapi.scoringCheck(result.data.contractId)
+    await fapi.LoanPreview();
     try {
       let filepath = path.join(
         __dirname,
@@ -62,22 +63,49 @@ class App {
       });
       req.body.merchant_id = user.merchant_id;
       req.body.fillial_id = user.fillial_id;
+      let myidData = await new Promise(function (resolve, reject) {
+        db.query(
+          `SELECT * from MyId WHERE pass_seriya='${passport}'`,
+          function (err, results, fields) {
+            console.log(err);
+            if (err) {
+              resolve(null);
+              return null;
+            }
+            if (results.length != 0) {
+              resolve(results[0]);
+            } else {
+              resolve(null);
+            }
+          }
+        );
+      });
+
+      if (!myidData) {
+        return next(new NotFoundError(404, "client ma'lumotlari topilmadi"));
+      }
 
       let id = await new Promise(function (resolve, reject) {
-        db.query(update1ZayavkaFunc(req.body), function (err, results, fields) {
-          console.log(err);
-          if (err) {
-            resolve(null);
-            return null;
+        db.query(
+          update1ZayavkaFunc({
+            ...req.body,
+            birth_date: myidData.profilecommon_data.birth_date,
+          }),
+          function (err, results, fields) {
+            console.log(err);
+            if (err) {
+              resolve(null);
+              return null;
+            }
+            console.log(err);
+            if (results.insertId) {
+              resolve(results.insertId);
+            } else {
+              resolve(null);
+              return null;
+            }
           }
-          console.log(err);
-          if (results.insertId) {
-            resolve(results.insertId);
-          } else {
-            resolve(null);
-            return null;
-          }
-        });
+        );
       });
 
       let zayavka = await new Promise(function (resolve, reject) {
@@ -106,6 +134,7 @@ class App {
       return next(new InternalServerError(500, error));
     }
   }
+
   async update2(req, res, next) {
     try {
       let {
@@ -207,19 +236,206 @@ class App {
         birthDate,
         // IdentificationVideoBase64,
       });
-        var filePath = path.join(
-          __dirname,
-          "..",
-          "..",
-          "public",
-          "passports",
-          `Zayavka-${req.body.id}.png`
+      var filePath = path.join(
+        __dirname,
+        "..",
+        "..",
+        "public",
+        "passports",
+        `Zayavka-${req.body.id}.png`
+      );
+      base64_decode_passport(selfie_with_passport, filePath);
+      let zayavka = await new Promise(function (resolve, reject) {
+        db.query(
+          `SELECT * from TestZayavka WHERE id=${id}`,
+          function (err, results, fields) {
+            console.log(err);
+            if (err) {
+              resolve(null);
+              return null;
+            }
+            if (results.length != 0) {
+              resolve(results[0]);
+            } else {
+              resolve(null);
+            }
+          }
         );
-      base64_decode_passport(selfie_with_passport,filePath)
+      });
+      let fillial = await new Promise(function (resolve, reject) {
+        db.query(
+          `SELECT * from fillial WHERE id=${zayavka.fillial_id}`,
+          function (err, results, fields) {
+            console.log(err);
+            if (err) {
+              resolve(null);
+              return null;
+            }
+            if (results.length != 0) {
+              resolve(results[0]);
+            } else {
+              resolve(null);
+            }
+          }
+        );
+      });
+
+      let result = await fapi.scoringSend(zayavka.phoneNumber, zayavka.pinfl);
+
+      botMessage.sentScoringInfo(zayavka, fillial);
+      if (result.code != 0) {
+        return next(new InternalServerError(500, result.message));
+      }
+
+      try {
+        for (let i = 0; 5 * i <= fillial.timeout; i++) {
+          let timer1 = setTimeout(async () => {
+            let zayavkaNew = await new Promise(function (resolve, reject) {
+              db.query(
+                `SELECT * from TestZayavka WHERE id=${id}`,
+                function (err, results, fields) {
+                  console.log(err);
+                  if (err) {
+                    resolve(null);
+                    return null;
+                  }
+                  if (results.length != 0) {
+                    resolve(results[0]);
+                  } else {
+                    resolve(null);
+                  }
+                }
+              );
+            });
+            if (zayavkaNew.status != "progress" || zayavkaNew.step > 3) {
+              clearTimeout(timer1);
+              return;
+            }
+            let scoringData = await fapi.scoringCheck(result.data.contractId);
+            // let scoringData = {
+            //   code: 0,
+            //   message: "Yaxshi",
+            //   data: [
+            //     {
+            //       scoringId: 853,
+            //       bankCode: "00439",
+            //       bankName: "Premium Bank",
+            //       state: "WAITING",
+            //       limitAmount: 0,
+            //     },
+            //     {
+            //       scoringId: 853,
+            //       bankCode: "00439",
+            //       bankName: "Premium Bank",
+            //       state: "SUCCESS",
+            //       limitAmount: 10000000,
+            //     },
+            //     {
+            //       scoringId: 863,
+            //       bankCode: "00439",
+            //       bankName: "Premium Bank",
+            //       state: "SUCCESS",
+            //       limitAmount: 15000000,
+            //     },
+            //     {
+            //       scoringId: 853,
+            //       bankCode: "00439",
+            //       bankName: "Premium Bank",
+            //       state: "SUCCESS",
+            //       limitAmount: 4000000,
+            //     },
+            //   ],
+            // };
+
+            if (scoringData.code != 0) {
+              console.log(scoringData.message);
+              return;
+            }
+            const resSuccess = scoringData.data.filter(
+              (item) => item.state == "SUCCESS"
+            );
+            const resCancel = scoringData.data.filter(
+              (item) => item.state == "CANCELED"
+            );
+            if (resSuccess.length > 0) {
+              const maxLimit = resSuccess.reduce(function (prev, current) {
+                return prev && prev.limitAmount > current.limitAmount
+                  ? prev
+                  : current;
+              });
+              fapi.sendLimitMessage(id, maxLimit.limitAmount);
+              await new Promise(function (resolve, reject) {
+                db.query(
+                  `update TestZayavka set step=4,bank="Fapi",limit_summa=${maxLimit.limitAmount},bankName='${maxLimit.bankName}', bankCode=${maxLimit.bankCode},scoringId=${maxLimit.scoringId} where id=${id}`
+                ),
+                  function (err, results, fields) {
+                    console.log(err);
+                    if (err) {
+                      return resolve(null);
+                      return null;
+                    }
+                    resolve(results);
+                  };
+              });
+            }
+            if (resCancel.length == scoringData.data.length) {
+              let canceled_reason =
+                resCancel.length > 0
+                  ? resCancel[0]["canceled_reason"]
+                  : "TIMEOUT";
+
+              fapi.sendCancelMessage(id);
+              botMessage.sendCancelInfo(zayavka, fillial, canceled_reason);
+              await new Promise(function (resolve, reject) {
+                db.query(
+                  `update TestZayavka set status="canceled_by_scoring",canceled_reason='${canceled_reason}' where id=${id}`
+                ),
+                  function (err, results, fields) {
+                    console.log(err);
+                    if (err) {
+                      return resolve(null);
+                      return null;
+                    }
+                    resolve(results);
+                  };
+              });
+            }
+            if (5 * (i + 1) > fillial.timeout) {
+              const res = scoringData.data.filter(
+                (item) => item.state != "WAITING"
+              );
+              let canceled_reason =
+                res.length > 0 ? res[0]["canceled_reason"] : "TIMEOUT";
+              fapi.sendCancelMessage(id);
+              botMessage.sendCancelInfo(zayavka, fillial, canceled_reason);
+              await new Promise(function (resolve, reject) {
+                db.query(
+                  `update TestZayavka set status="canceled_by_scoring",canceled_reason='${canceled_reason}' where id=${id}`
+                ),
+                  function (err, results, fields) {
+                    console.log(err);
+                    if (err) {
+                      return resolve(null);
+                      return null;
+                    }
+                    resolve(results);
+                  };
+              });
+            }
+            console.log(new Date());
+            clearTimeout(timer1);
+          }, (i + 1) * 5000);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+
       await new Promise(function (resolve, reject) {
         db.query(
           update3ZayavkaFunc({
             ...req.body,
+
+            contractId: result.data.contractId,
             //   payment_amount: Math.floor(max_amount * (1 + val["percent"] / 100)),
           }),
           function (err, results, fields) {
@@ -251,47 +467,47 @@ class App {
         );
       });
 
-      let t1 = setTimeout(async function () {
-        if (id % 2 == 0) {
-          await new Promise(function (resolve, reject) {
-            db.query(
-              `update TestZayavka set limit_summa=9000000,step=4 WHERE id=${id}`,
-              function (err, results, fields) {
-                if (err) {
-                  console.log(err);
-                  resolve(null);
-                  return null;
-                }
-                if (results.length != 0) {
-                  resolve(results[0]);
-                } else {
-                  resolve(null);
-                }
-              }
-            );
-          });
-        } else {
-          await new Promise(function (resolve, reject) {
-            db.query(
-              `update TestZayavka set status="canceled_by_scoring",canceled_reason="тест отказ" WHERE id=${id}`,
-              function (err, results, fields) {
-                if (err) {
-                  console.log(err);
-                  resolve(null);
-                  return null;
-                }
-                if (results.length != 0) {
-                  resolve(results[0]);
-                } else {
-                  resolve(null);
-                }
-              }
-            );
-          });
-        }
+      // let t1 = setTimeout(async function () {
+      //   if (id % 2 == 0) {
+      //     await new Promise(function (resolve, reject) {
+      //       db.query(
+      //         `update TestZayavka set limit_summa=9000000,step=4 WHERE id=${id}`,
+      //         function (err, results, fields) {
+      //           if (err) {
+      //             console.log(err);
+      //             resolve(null);
+      //             return null;
+      //           }
+      //           if (results.length != 0) {
+      //             resolve(results[0]);
+      //           } else {
+      //             resolve(null);
+      //           }
+      //         }
+      //       );
+      //     });
+      //   } else {
+      //     await new Promise(function (resolve, reject) {
+      //       db.query(
+      //         `update TestZayavka set status="canceled_by_scoring",canceled_reason="тест отказ" WHERE id=${id}`,
+      //         function (err, results, fields) {
+      //           if (err) {
+      //             console.log(err);
+      //             resolve(null);
+      //             return null;
+      //           }
+      //           if (results.length != 0) {
+      //             resolve(results[0]);
+      //           } else {
+      //             resolve(null);
+      //           }
+      //         }
+      //       );
+      //     });
+      //   }
 
-        clearTimeout(t1);
-      }, 10 * 1000);
+      //   clearTimeout(t1);
+      // }, 10 * 1000);
 
       return res.status(200).json({
         data: zayavkaUpdated,
@@ -427,27 +643,64 @@ class App {
           }
         );
       });
+      console.log(fillial.expired_months);
+      let arr = fillial.expired_months.map((obj) => {
+        return `${obj.month}`;
+      });
+
+      let val =
+        fillial.expired_months[arr.indexOf(`${req.body.expired_month}`)];
+      console.log(val);
+
+         if (fillial.percent_type == "OUT") {
+           
+           await fapi.addGoods(
+             zayavkaOld.contractId,
+             zayavkaOld.scoringId,
+
+             Math.floor(zayavkaOld.amount * (1 + val["percent"] / 100) * 100),
+             zayavkaOld.products.map((item, i) => {
+               return {
+                 count: 1,
+                 name: item.name,
+                 price: Math.floor(
+                   item.price * (1 + val["percent"] / 100) * 100
+                 ),
+               };
+             })
+           );
+         } else {
+           await fapi.addGoods(
+             zayavkaOld.contractId,
+             zayavkaOld.scoringId,
+             Math.floor(req.body.payment_amount * 100),
+             zayavkaOld.products.map((item, i) => {
+               return {
+                 count: 1,
+                 name: item.name,
+                 price: Math.floor(item.price * 100),
+               };
+             })
+           );
+         }
+
+
+
+
 
       if (fillial.percent_type == "OUT") {
-        console.log(fillial.expired_months);
-        let arr = fillial.expired_months.map((obj) => {
-          return `${obj.month}`;
-        });
-
-        let val =
-          fillial.expired_months[arr.indexOf(`${req.body.expired_month}`)];
-        console.log(val);
-        console.log(Math.floor(req.body.payment_amount + 1) / 1000);
-        console.log(
-          Math.floor((zayavkaOld.amount * (1 + val["percent"] / 100)) / 1000)
-        );
-        console.log(
-          Math.floor(req.body.payment_amount + 1) / 1000 !=
-            Math.floor((zayavkaOld.amount * (1 + val["percent"] / 100)) / 1000)
-        );
+        // console.log(Math.floor(req.body.payment_amount + 1) / 1000);
+        // console.log(
+        //   Math.floor((zayavkaOld.amount * (1 + val["percent"] / 100)) / 1000)
+        // );
+        // console.log(
+        //   Math.floor(req.body.payment_amount + 1) / 1000 !=
+        //     Math.floor((zayavkaOld.amount * (1 + val["percent"] / 100)) / 1000)
+        // );
         // if ( Math.floor(( req.body.payment_amount   + 1) / 1000)  !=  Math.floor(zayavkaOld.amount * (1 + val["percent"] / 100)/1000)) {
         //  return next(new BadRequestError(400, "Payment amount Error"));
         // }
+
         await new Promise(function (resolve, reject) {
           db.query(
             update6ZayavkaFunc({
@@ -502,6 +755,8 @@ class App {
         );
       });
 
+   
+
       return res.status(200).json({
         data: zayavka,
         message: "Update 6 is done",
@@ -511,50 +766,7 @@ class App {
       return next(new InternalServerError(500, error));
     }
   }
-  async update7(req, res, next) {
-    try {
-      console.log(">>>>> update7");
-      console.log(req.body);
-      await new Promise(function (resolve, reject) {
-        db.query(update7ZayavkaFunc(req.body), function (err, results, fields) {
-          console.log(err);
-          if (err) {
-            return resolve(null);
-            // return null;
-          }
 
-          resolve(results);
-        });
-      });
-
-      let zayavka = await new Promise(function (resolve, reject) {
-        db.query(
-          `SELECT * from TestZayavka WHERE id=${req.body.id}`,
-          function (err, results, fields) {
-            console.log(err);
-            if (err) {
-              resolve(null);
-              return null;
-            }
-            if (results.length != 0) {
-              resolve(results[0]);
-            } else {
-              resolve(null);
-            }
-          }
-        );
-      });
-      console.log(">>>> zayavka");
-      console.log(zayavka);
-      return res.status(200).json({
-        data: zayavka,
-        message: "Update 7 is done Successfully",
-      });
-    } catch (error) {
-      console.log(error.message);
-      return next(new InternalServerError(500, error));
-    }
-  }
   async sendCode(req, res, next) {
     try {
       let { id } = req.body;
@@ -575,9 +787,9 @@ class App {
           }
         );
       });
-    return res.status(200).json({
-      message: `code sent  to ${customhashPhoneNumber(zayavka.phoneNumber)}`,
-    });
+      return res.status(200).json({
+        message: `code sent  to ${customhashPhoneNumber(zayavka.phoneNumber)}`,
+      });
     } catch (error) {
       console.log(error.message);
       return next(new InternalServerError(500, error));
@@ -619,29 +831,42 @@ class App {
     }
   }
 
-  async updateFinish(req, res, next) {
+  async update7(req, res, next) {
+  
     try {
-
-      let { contractPdf, id, term } = req.body;
-      let date = new Date();
-      let singedAt = `${date.getFullYear()}-${
-        date.getMonth() + 1
-      }-${date.getDate()}`;
-      console.log(singedAt);
-
-      await new Promise(function (resolve, reject) {
+      // let { contractPdf, id, term } = req.body;
+      // let date = new Date();
+      // let singedAt = `${date.getFullYear()}-${
+      //   date.getMonth() + 1
+      // }-${date.getDate()}`;
+      // console.log(singedAt);
+      
+      setTimeout(async()=>{
+         await new Promise(function (resolve, reject) {
         db.query(
-          updateFinishZayavkaFunc(req.body),
+          `update TestZayavka set contract_status="SUCCESS" WHERE id=${req.body.id}`,
           function (err, results, fields) {
             if (err) {
               return resolve(null);
               return null;
             }
-
             resolve(results);
           }
         );
       });
+      },300*1000);
+      await new Promise(function (resolve, reject) {
+        db.query(update7ZayavkaFunc(req.body), function (err, results, fields) {
+          if (err) {
+            return resolve(null);
+            return null;
+          }
+
+          resolve(results);
+        });
+      });
+
+
 
       let zayavka = await new Promise(function (resolve, reject) {
         db.query(
@@ -662,7 +887,7 @@ class App {
 
       return res.status(200).json({
         data: zayavka,
-        message: "Update  is Finished , oferta is sent ",
+        message: "Update 7  is done  ",
       });
     } catch (error) {
       console.log(error);
@@ -670,6 +895,236 @@ class App {
     }
   }
 
+  async updateFinish(req, res, next) {
+
+    console.log('update finish');
+     let { code, base64,id } = req.body;
+     console.log(req.body)
+    try {
+      
+       let zayavka = await new Promise(function (resolve, reject) {
+         db.query(
+           `SELECT * from TestZayavka WHERE id=${req.body.id}`,
+           function (err, results, fields) {
+             console.log(err);
+             if (err) {
+               resolve(null);
+               return null;
+             }
+             if (results.length != 0) {
+               resolve(results[0]);
+             } else {
+               resolve(null);
+             }
+           }
+         );
+       });
+       console.log(">>>>>>>>>>>>>>>>>");
+
+      if(zayavka.contract_status != "SUCCESS"){
+        return next( new BadRequestError(400,"The contract was not confirned !"))
+      }
+       console.log("code: " + code);
+
+       const loginData = await Fapi.login();
+       let access_token = loginData["access_token"];
+       if (code) {
+         let url2 = process.env.FAPI_MYID_SDK + "?code=" + code;
+         console.log("access_token " + access_token);
+         let response2 = await axios
+           .get(
+             url2,
+
+             {
+               headers: {
+                 Authorization: "Bearer " + access_token,
+               },
+             }
+           )
+           .then((r) => r)
+           .catch((err) => {
+             throw err;
+           });
+           console.log(response2.data)
+
+           // in prod
+
+            //  if (!response2.data.profile || response2.data.result_code != 1) {
+            //    return next(
+            //      new BadRequestError(400, response2.data.result_note ?? "error")
+            //    );
+            //  } 
+
+         console.log("success:");
+         console.log(response2.data);
+        //  return res.status(200).json(response2.data);
+       } else if (base64) {
+         console.log("aaa");
+         var filePath = path.join(
+           __dirname,
+           "..",
+           "..",
+           "public",
+           "myidconfirm",
+           `${req.body.passport}.png`
+         );
+         console.log(filePath);
+         let newBase64 = await base64_decode(base64, filePath);
+         let url1 = process.env.FAPI_MYID_JOB_ID;
+         let url2 = process.env.FAPI_MYID_PROFILE;
+         let client_id = process.env.FAPI_MYID_CLIENT_ID;
+
+         const response1 = await axios
+           .post(
+             url1,
+             {
+               pass_data: zayavka.passport,
+               birth_date: zayavka.birth_date,
+               client_id: client_id,
+          
+               photo_from_camera: {
+                 front: newBase64,
+               },
+               threshold: 0.5,
+               agreed_on_terms: true,
+               is_resident: true,
+             },
+             {
+               headers: {
+                 // "Content-Type": "application/x-www-form-urlencoded",
+                 "Content-Type": "application/json",
+               },
+             }
+           )
+           .then((r) => r)
+           .catch((err) => {
+             throw err;
+           });
+
+         // console.log(response1);
+         let job_id = response1.data["job_id"];
+         let response2 = await axios
+           .get(
+             url2 + "?job_id=" + job_id,
+
+             {
+               headers: {
+                 Authorization: "Bearer " + access_token,
+               },
+             }
+           )
+           .then((r) => r)
+           .catch((err) => {
+             throw err;
+           });
+
+         while (response2.status != 200) {
+           response2 = await axios
+             .post(
+               url2,
+               "",
+               {
+                 headers: {
+                   Authorization: `Bearer ${access_token}`,
+                   // 'Content-Type': 'application/json',
+                   "Content-Type": "text/plain",
+
+                   responseType: "json",
+                   responseEncoding: "utf8",
+                 },
+               },
+               {}
+             )
+             .then((r) => r)
+             .catch((err) => {
+               throw err;
+             });
+         }
+         console.log("response2: " + response2);
+         //in prod
+        //  if ( !response2.data.profile || response2.data.result_code  !=1) {
+        //    return next(
+        //      new BadRequestError(400, response2.data.result_note ?? "error")
+        //    );
+        //  } 
+       }
+
+
+
+
+      console.log(">>>>> update finish");
+      console.log(req.body);
+      await new Promise(function (resolve, reject) {
+        db.query(
+          updateFinishZayavkaFunc(req.body),
+          function (err, results, fields) {
+            console.log(err);
+            if (err) {
+              return resolve(null);
+              // return null;
+            }
+
+            resolve(results);
+          }
+        );
+      });
+
+     let Updatedzayavka = await new Promise(function (resolve, reject) {
+       db.query(
+         `SELECT * from TestZayavka WHERE id=${req.body.id}`,
+         function (err, results, fields) {
+           console.log(err);
+           if (err) {
+             resolve(null);
+             return null;
+           }
+           if (results.length != 0) {
+             resolve(results[0]);
+           } else {
+             resolve(null);
+           }
+         }
+       );
+     });
+      console.log(">>>> finish");
+      console.log("Updatedzayavka:", Updatedzayavka);
+      return res.status(200).json({
+        data: Updatedzayavka,
+        message: "Update finish  is done Successfully",
+      });
+    } catch (error) {
+      console.log(error.message);
+      return next(new InternalServerError(500, error));
+    }
+  }
+async Loan(req,res,next){
+  const id = req.params.id
+  try {
+      let zayavka = await new Promise(function (resolve, reject) {
+        db.query(
+          `SELECT * from TestZayavka WHERE id=${id}`,
+          function (err, results, fields) {
+            if (err) {
+              resolve(null);
+              return null;
+            }
+            if (results.length != 0) {
+              resolve(results[0]);
+            } else {
+              resolve(null);
+            }
+          }
+        );
+      });
+      let result = await fapi.LoanPreview(zayavka.contractId);
+      return res.status(200).json({
+       data: result
+      });
+  } catch (error) {
+    return next(new InternalServerError(500,error))
+  }
+
+}
   async cancel_by_client(req, res, next) {
     try {
       await new Promise(function (resolve, reject) {
@@ -1236,16 +1691,22 @@ class App {
   }
 }
 
-
 function update1ZayavkaFunc(data) {
-  let { user_id, merchant_id, fillial_id, fullname, passport, pinfl } = data;
+  let {
+    user_id,
+    merchant_id,
+    fillial_id,
+    fullname,
+    passport,
+    pinfl,
+    birth_date,
+  } = data;
   fullname = `${fullname}`;
   fullname = fullname.replaceAll("'", "ʻ");
-  return `INSERT INTO TestZayavka (user_id,merchant_id,fillial_id,fullname,passport,pinfl,bank) VALUES (${user_id},${merchant_id},${fillial_id},'${fullname}','${passport}','${
+  return `INSERT INTO TestZayavka (user_id,merchant_id,fillial_id,fullname,passport,pinfl,bank,birth_date) VALUES (${user_id},${merchant_id},${fillial_id},'${fullname}','${passport}','${
     pinfl ?? ""
-  }','Fapi') ; `;
+  }','Fapi','${birth_date}') ; `;
 }
-
 
 function update2ZayavkaFunc(data) {
   let {
@@ -1269,14 +1730,12 @@ function update2ZayavkaFunc(data) {
   }
 }
 function update3ZayavkaFunc(data) {
-  let { id, max_amount, payment_amount } = data;
-  return `update TestZayavka SET step=3,max_amount='${max_amount}' WHERE id = ${id};`;
+  let { id, max_amount, payment_amount, contractId } = data;
+  return `update TestZayavka SET step=3,max_amount='${max_amount}',contractId=${contractId} WHERE id = ${id};`;
 }
 
-
 function update5ZayavkaFunc(data) {
-
-  let { id, products, location, device, amount,type } = data;
+  let { id, products, location, device, amount, type } = data;
   let productsString = `'[`;
   products.forEach((product) => {
     productsString += toMyString(product).slice(1, -1);
@@ -1286,40 +1745,38 @@ function update5ZayavkaFunc(data) {
   productsString += "]'";
   console.log(productsString);
 
-  if (type =="IN") {
+  if (type == "IN") {
     return `update TestZayavka SET step=5,payment_amount=${amount},products=${
       productsString ?? ""
     },location=${toMyString(location)},device=${toMyString(
       device
-    )} WHERE id = ${id};`
-  }else{
+    )} WHERE id = ${id};`;
+  } else {
     return `update TestZayavka SET step=5,amount=${amount},products=${
       productsString ?? ""
     },location=${toMyString(location)},device=${toMyString(
       device
-    )} WHERE id = ${id};`
+    )} WHERE id = ${id};`;
   }
 }
 
 function update6ZayavkaFunc(data) {
-  let { id, payment_amount, expired_month,type } = data;
-  if (type =="IN") {
+  let { id, payment_amount, expired_month, type } = data;
+  if (type == "IN") {
     return `update TestZayavka SET step=6,amount=${payment_amount},expired_month = ${expired_month} WHERE id = ${id};`;
-
-  }else{
+  } else {
     return `update TestZayavka SET step=6,payment_amount=${payment_amount},expired_month = ${expired_month} WHERE id = ${id};`;
-
   }
- }
+}
 
 function updateFinishZayavkaFunc(data) {
   let { id } = data;
-  return `update TestZayavka SET step=8,agree = TRUE,status = 'finished',finished_time = CURRENT_TIMESTAMP WHERE id = ${id};`;
+  return `update TestZayavka SET step=8,status = 'finished',finished_time = CURRENT_TIMESTAMP WHERE id = ${id};`;
 }
 
 function update7ZayavkaFunc(data) {
   let { id } = data;
-  return `update TestZayavka SET step=7,selfie='/static/images/zayavka${id}.jpg'  WHERE id = ${id};`;
+  return `update TestZayavka SET step=7,contract_status="WAITING"  WHERE id = ${id};`;
 }
 
 function cancelByClientZayavkaFunc(data) {
@@ -1331,29 +1788,26 @@ async function base64_decode_passport(base64str, filePath) {
   let base64Image = base64str.split(";base64,")[1];
   var bitmap = Buffer.from(base64Image.toString(), "base64");
 
-  
   fs.writeFileSync(filePath, bitmap);
 
   console.log("******** File created from base64 encoded string ********");
-
-
 }
 function customhashPhoneNumber(phone) {
-    if (!phone ) {
-      return "";
-    } else {
-      phone =phone.toString();
-      let res = phone.substring(0, 4) +
-          "(" +
-          phone.substring(4, 6) +
-          ") ***-" +
-          phone.substring(9, 11) +
-          "-" +
-          phone.substring(11, 13);
-      return res;
-    }
+  if (!phone) {
+    return "";
+  } else {
+    phone = phone.toString();
+    let res =
+      phone.substring(0, 4) +
+      "(" +
+      phone.substring(4, 6) +
+      ") ***-" +
+      phone.substring(9, 11) +
+      "-" +
+      phone.substring(11, 13);
+    return res;
   }
-
+}
 
 function toMyString(ob) {
   if (!ob) {
@@ -1374,10 +1828,23 @@ function toMyString(ob) {
   result = result + `}'`;
   return result;
 }
+async function base64_decode(base64str, filePath) {
+  let base64Image = base64str.split(";base64,")[1];
+  var bitmap = Buffer.from(base64Image.toString(), "base64");
 
+  const image = await resizeImg(bitmap, {
+    width: 480,
+    height: 640,
+  });
 
+  fs.writeFileSync(filePath, image);
 
+  const newBase64 = fs.readFileSync(filePath, { encoding: "base64" });
 
+  // console.log("******** File created from base64 encoded string ********");
+  // console.log(newBase64.slice(50));
+  return "data:image/jpeg;base64," + newBase64;
+}
 Date.prototype.addHours = function (h) {
   this.setHours(this.getHours() + h);
   return this;

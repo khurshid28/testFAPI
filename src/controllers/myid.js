@@ -130,7 +130,7 @@ class Myid {
             });
         }
         console.log('response2: ' + response2);
-         if (response2.data.profile && response2.data.result_code != 3) {
+         if (response2.data.profile && response2.data.result_code == 1) {
            let userMyIdData = await new Promise((resolve, reject) => {
              db.query(
                `INSERT INTO MyId (response_id,pass_seriya,comparison_value,profile) VALUES ('${

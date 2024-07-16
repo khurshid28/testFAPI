@@ -34,8 +34,7 @@ router.post("/update/3",checkUser,default_config,ZayavkaReq.update3, appControll
 // router.post("/update/4",checkUser, appController.update4);
 router.post("/update/5",checkUser,default_config,ZayavkaReq.update5_6_7_finish, appController.update5);
 router.post("/update/6",checkUser,default_config,ZayavkaReq.update5_6_7_finish,  appController.update6);
-router.post("/update/7",checkUser,upload,default_config,ZayavkaReq.update5_6_7_finish,   appController.update7);
-router.post("/update/7",checkUser,upload,default_config,ZayavkaReq.update5_6_7_finish,   appController.update7);
+router.post("/update/7",checkUser,default_config,ZayavkaReq.update5_6_7_finish,   appController.update7);
 
 router.post(
   "/confirm-code",
@@ -45,8 +44,6 @@ router.post(
 );
 router.post(
   "/send-code",
-  
-  
   appController.sendCode
 );
 router.post("/update/finish",checkUser,default_config,ZayavkaReq.update5_6_7_finish, appController.updateFinish);
@@ -64,7 +61,7 @@ router.get("/cancelTexts/",checkUser, appController.cancelTexts);
 
 
 router.get("/percents/:fillial_id",checkUser, appController.getPercents);
-
+router.get("/loan/:id", appController.Loan)
 router.get("/:id", appController.getByid);
 router.get("/graph/:id", appController.graph);
 router.get("/oferta/:id", appController.oferta);

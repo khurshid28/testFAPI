@@ -2,6 +2,14 @@ let axios = require("axios");
 const path = require("path");
 let fs = require("fs");
 let db = require("../config/db");
+
+const {
+  InternalServerError,
+  ForbiddenError,
+  NotFoundError,
+  BadRequestError,
+} = require("../utils/errors.js");
+
 class Fapi {
   async login() {
     const login = process.env.FAPI_LOGIN;
@@ -46,7 +54,126 @@ class Fapi {
       console.log(error);
     }
   }
-
+  async scoringSend(phoneNumber, pinfl) {
+    let response;
+    try {
+      let access_token = (await this.login())["access_token"];
+      let url = process.env.FAPI_scoring_send;
+      response = await axios.post(
+        url,
+        {
+          buyerPinfl: pinfl,
+          buyerPhone:phoneNumber,
+          totalAmount: 50000000,
+          contractDate: formattedDate(),
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${access_token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log(response.data);
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  async scoringCheck(contractId) {
+    let response;
+    try {
+      let access_token = (await this.login())["access_token"];
+      let url = process.env.FAPI_scoring_check;
+      response = await axios.post(
+        url,
+        {
+          contractId,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${access_token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log(response.data);
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  async addGoods(contractId, scoringId, amount, products) {
+    let response;
+    try {
+      let access_token = (await this.login())["access_token"];
+      let url = process.env.FAPI_add_goods;
+      response = await axios.post(
+        url,
+        {
+          contractId: contractId,
+          scoringId: scoringId,
+          amount: amount,
+          goods: products,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${access_token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log(response.data);
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  async ContractPreview(contractId) {
+    try {
+      let access_token = (await this.login())["access_token"];
+      let url = process.env.FAPI_PREVIEW_CONTRACT;
+      let response = await axios.post(
+        url,
+        {
+          contractId,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${access_token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  async LoanPreview(contractId) {
+    try {
+      let access_token = (await this.login())["access_token"];
+      let url = process.env.FAPI_PREVIEW_LOAN;
+      let response = await axios.post(
+        url,
+        {
+          contractId,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${access_token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+   
+    
+      return response.data
+    } catch (error) {
+      
+       throw error
+    }
+  }
   async sendLimitMessage(id, price) {
     try {
       let zayavka = await new Promise(function (resolve, reject) {
@@ -145,10 +272,10 @@ class Fapi {
         zayavka.phoneNumber.replaceAll("+", ""),
         `Hurmatli mijoz, ID: ${zayavka.loanId}\nBankdan olingan mikroqarzingizni mobil ilovalar orqali so'ndirishingiz mumkin;\nMuddati o'tgan qarzdorlik vujudga kelganda karta raqamingizdan avtomatik tarzda yechiladi\nMa'lumot uchun: +998935034000`
       );
-        console.log(
-          `Hurmatli mijoz, ID: ${zayavka.loanId}\n Bankdan olingan mikroqarzingizni mobil ilovalar orqali so'ndirishingiz mumkin;\nMuddati o'tgan qarzdorlik vujudga kelganda karta raqamingizdan avtomatik tarzda yechiladi\nMa'lumot uchun: +998935034000`
-        .length);
-
+      console.log(
+        `Hurmatli mijoz, ID: ${zayavka.loanId}\n Bankdan olingan mikroqarzingizni mobil ilovalar orqali so'ndirishingiz mumkin;\nMuddati o'tgan qarzdorlik vujudga kelganda karta raqamingizdan avtomatik tarzda yechiladi\nMa'lumot uchun: +998935034000`
+          .length
+      );
     } catch (error) {
       console.log(error);
     }
@@ -167,6 +294,16 @@ function toMoney(number) {
     }
   }
   return result;
+}
+
+function formattedDate() {
+  const date = new Date();
+
+  // Get the day, month, and year
+  const day = String(date.getDate()).padStart(2, "0");
+  const month = String(date.getMonth() + 1).padStart(2, "0"); // Months are zero-indexed
+  const year = date.getFullYear();
+  return `${day}.${month}.${year}`;
 }
 
 module.exports = new Fapi();
