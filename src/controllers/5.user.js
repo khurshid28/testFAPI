@@ -1,5 +1,4 @@
-const User = require("../models/User.js");
-const Merchant = require("../models/Merchant.js");
+
 
 const { InternalServerError, ForbiddenError, BadRequestError } = require("../utils/errors.js");
 const cryptoRandomString = require("secure-random-string");

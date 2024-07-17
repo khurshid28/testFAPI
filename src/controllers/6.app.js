@@ -23,7 +23,9 @@ class App {
   async publicOferta(req, res, next) {
     // //  let result= await fapi.scoringSend("51505045320022");
     // await fapi.scoringCheck(result.data.contractId)
-    await fapi.LoanPreview();
+
+    // botMessage.sendCancelInfo('a',1,3)
+    botMessage.sentScoringInfo(1,2)
     try {
       let filepath = path.join(
         __dirname,
@@ -89,7 +91,7 @@ class App {
         db.query(
           update1ZayavkaFunc({
             ...req.body,
-            birth_date: myidData.profilecommon_data.birth_date,
+            birth_date: myidData.profile.common_data.birth_date,
           }),
           function (err, results, fields) {
             console.log(err);
@@ -153,11 +155,56 @@ class App {
       fullname = fullname.replaceAll("ʻ", "'");
       passport_by = passport_by.replaceAll("ʻ", "'");
       console.log(req.body);
+      
+      let zayavka = await new Promise(function (resolve, reject) {
+        db.query(
+          `SELECT * from TestZayavka WHERE id=${req.body.id}`,
+          function (err, results, fields) {
+            if (err) {
+              resolve(null);
+              return null;
+            }
+            if (results.length != 0) {
+              resolve(results[0]);
+            } else {
+              resolve(null);
+            }
+          }
+        );
+      });
+        let fillial = await new Promise(function (resolve, reject) {
+          db.query(
+            `SELECT * from fillial WHERE id=${zayavka.fillial_id}`,
+            function (err, results, fields) {
+              console.log(err);
+              if (err) {
+                resolve(null);
+                return null;
+              }
+              if (results.length != 0) {
+                resolve(results[0]);
+              } else {
+                resolve(null);
+              }
+            }
+          );
+        });
+            let result = await fapi.scoringSend(
+              phoneNumber,
+              zayavka.pinfl
+            );
+
+            botMessage.sentScoringInfo(zayavka, fillial);
+            if (result.code != 0) {
+              return next(new InternalServerError(500, result.message));
+            }
+            console.log(result);
+
       await new Promise(function (resolve, reject) {
         db.query(
           update2ZayavkaFunc(req.body),
-          cardId
-            ? [
+          
+          [
                 2,
                 phoneNumber,
                 phoneNumber2,
@@ -166,18 +213,7 @@ class App {
                 passport_by,
                 JSON.stringify(address),
                 region_id,
-                cardId,
-                id,
-              ]
-            : [
-                2,
-                phoneNumber,
-                phoneNumber2,
-                cardNumber,
-                passport_date,
-                passport_by,
-                JSON.stringify(address),
-                region_id,
+                result.data.contractId,
                 id,
               ],
           function (err, results, fields) {
@@ -279,14 +315,6 @@ class App {
           }
         );
       });
-
-      let result = await fapi.scoringSend(zayavka.phoneNumber, zayavka.pinfl);
-
-      botMessage.sentScoringInfo(zayavka, fillial);
-      if (result.code != 0) {
-        return next(new InternalServerError(500, result.message));
-      }
-
       try {
         for (let i = 0; 5 * i <= fillial.timeout; i++) {
           let timer1 = setTimeout(async () => {
@@ -311,7 +339,7 @@ class App {
               clearTimeout(timer1);
               return;
             }
-            let scoringData = await fapi.scoringCheck(result.data.contractId);
+            let scoringData = await fapi.scoringCheck(zayavka.contractId);
             // let scoringData = {
             //   code: 0,
             //   message: "Yaxshi",
@@ -435,7 +463,7 @@ class App {
           update3ZayavkaFunc({
             ...req.body,
 
-            contractId: result.data.contractId,
+          
             //   payment_amount: Math.floor(max_amount * (1 + val["percent"] / 100)),
           }),
           function (err, results, fields) {
@@ -762,7 +790,7 @@ class App {
         message: "Update 6 is done",
       });
     } catch (error) {
-      console.log(error.message);
+      console.log(error);
       return next(new InternalServerError(500, error));
     }
   }
@@ -1117,9 +1145,16 @@ async Loan(req,res,next){
         );
       });
       let result = await fapi.LoanPreview(zayavka.contractId);
-      return res.status(200).json({
-       data: result
-      });
+    
+       res.contentType("application/pdf");
+
+       res.setHeader(
+         "Content-Disposition",
+         `attachment; filename=graph-${id}.pdf`
+       );
+
+       return res.send(result);
+     
   } catch (error) {
     console.log(error);
     return next(new InternalServerError(500,error))
@@ -1718,21 +1753,19 @@ function update2ZayavkaFunc(data) {
     passport_by,
     passport_date,
     address,
-    cardId,
     region_id,
+    contractId
   } = data;
 
   // passport_by = passport_by.replaceAll("ʻ", "'");
   // address = address.replaceAll("ʻ", "'");
-  if (cardId) {
-    return `UPDATE TestZayavka SET step=?,phoneNumber=?,phoneNumber2=?,cardNumber=?,passport_date=?,passport_by=?,address=?,region_id=?,cardId=? WHERE id = ?`;
-  } else {
-    return `UPDATE TestZayavka SET step=?,phoneNumber=?,phoneNumber2=?,cardNumber=?,passport_date=?,passport_by=?,address=?,region_id=? WHERE id = ?`;
-  }
+
+    return `UPDATE TestZayavka SET step=?,phoneNumber=?,phoneNumber2=?,cardNumber=?,passport_date=?,passport_by=?,address=?,region_id=?,contractId=? WHERE id = ?`;
+ 
 }
 function update3ZayavkaFunc(data) {
-  let { id, max_amount, payment_amount, contractId } = data;
-  return `update TestZayavka SET step=3,max_amount='${max_amount}',contractId=${contractId} WHERE id = ${id};`;
+  let { id, max_amount, payment_amount } = data;
+  return `update TestZayavka SET step=3,max_amount='${max_amount}' WHERE id = ${id};`;
 }
 
 function update5ZayavkaFunc(data) {

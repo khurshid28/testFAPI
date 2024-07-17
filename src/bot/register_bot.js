@@ -5,7 +5,6 @@ const botToken = "6775552139:AAFsKqrDUpTMCgZj1Y9LbkrOR9y6IM7ZF5k";
  
 const bot = new TelegramBot(botToken, { polling: true });
 
-// let userData[chatId].currentState= "start";
 
 const keyboard = {
   inline_keyboard: [[{ text: "Boshladik", callback_data: "begin" }]],

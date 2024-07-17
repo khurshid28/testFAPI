@@ -1,4 +1,4 @@
-const Super = require("../models/Super.js");
+
 const cryptoRandomString = require("secure-random-string");
 const {
     InternalServerError,

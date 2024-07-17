@@ -1,8 +1,4 @@
 const jwt = require("../utils/jwt.js");
-const User = require("../models/User.js");
-const Super = require("../models/Super.js");
-const Admin = require("../models/Admin.js");
-
 const {
   AuthorizationError,
   ForbiddenError,
@@ -11,7 +7,6 @@ const {
   UnAvailableError,
 } = require("../utils/errors.js");
 const { TokenExpiredError, JsonWebTokenError } = require("jsonwebtoken");
-
 let db = require("../config/db");
 
 module.exports = async (req, res, next) => {

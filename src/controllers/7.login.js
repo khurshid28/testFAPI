@@ -1,7 +1,4 @@
-const Super = require("../models/Super.js");
-const Admin = require("../models/Admin.js");
-const User = require("../models/User.js");
-const Merchant = require("../models/Merchant.js");
+
 
 let db = require("../config/db");
 

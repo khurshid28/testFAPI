@@ -9,31 +9,37 @@ const {
   NotFoundError,
   BadRequestError,
 } = require("../utils/errors.js");
+const e = require("express");
 
 class Fapi {
   async login() {
     const login = process.env.FAPI_LOGIN;
-    const response1 = await axios.post(
-      login,
-      {
-        client_id: process.env.CLIENT_ID,
-        grant_type: process.env.GRANT_TYPE,
-        client_secret: process.env.CLIENT_SECRET,
-        username: process.env.FAPI_USERNAME,
-        password: process.env.FAPI_PASSWORD,
-      },
-      {
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
+    const response1 = await axios
+      .post(
+        login,
+        {
+          client_id: process.env.CLIENT_ID,
+          grant_type: process.env.GRANT_TYPE,
+          client_secret: process.env.CLIENT_SECRET,
+          username: process.env.FAPI_USERNAME,
+          password: process.env.FAPI_PASSWORD,
         },
-        timeout: 10000,
-      }
-    );
+        {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          timeout: 10000,
+        }
+      )
+      .catch((e) => {
+        throw e;
+      });;
     console.log("logged");
+     this.logger(response1);
     return response1.data;
   }
   async sendSms(phoneNumber, text) {
-    try {
+  
       let access_token = (await this.login())["access_token"];
       let url = process.env.FAPI_SMS_URL;
       let response = await axios.post(
@@ -48,64 +54,69 @@ class Fapi {
             "Content-Type": "application/json",
           },
         }
-      );
+      ).catch((e)=>{throw e});;
       console.log(response.data);
-    } catch (error) {
-      console.log(error);
-    }
+       this.logger(response);
+    
   }
   async scoringSend(phoneNumber, pinfl) {
     let response;
-    try {
+   
       let access_token = (await this.login())["access_token"];
       let url = process.env.FAPI_scoring_send;
-      response = await axios.post(
-        url,
-        {
-          buyerPinfl: pinfl,
-          buyerPhone:phoneNumber,
-          totalAmount: 50000000,
-          contractDate: formattedDate(),
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${access_token}`,
-            "Content-Type": "application/json",
+      response = await axios
+        .post(
+          url,
+          {
+            buyerPinfl: pinfl,
+            buyerPhone: phoneNumber,
+            totalAmount: 50000000,
+            contractDate: formattedDate(),
           },
-        }
-      );
+          {
+            headers: {
+              Authorization: `Bearer ${access_token}`,
+              "Content-Type": "application/json",
+            },
+          }
+        )
+        .catch((e) => {
+          throw e;
+        });;
       console.log(response.data);
+        this.logger(response);
       return response.data;
-    } catch (error) {
-      console.log(error);
-    }
+   
   }
   async scoringCheck(contractId) {
     let response;
-    try {
+
       let access_token = (await this.login())["access_token"];
       let url = process.env.FAPI_scoring_check;
-      response = await axios.post(
-        url,
-        {
-          contractId,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${access_token}`,
-            "Content-Type": "application/json",
+      response = await axios
+        .post(
+          url,
+          {
+            contractId,
           },
-        }
-      );
+          {
+            headers: {
+              Authorization: `Bearer ${access_token}`,
+              "Content-Type": "application/json",
+            },
+          }
+        )
+        .catch((e) => {
+          throw e;
+        });;
       console.log(response.data);
+      this.logger(response)
       return response.data;
-    } catch (error) {
-      console.log(error);
-    }
+    
   }
   async addGoods(contractId, scoringId, amount, products) {
     let response;
-    try {
+   
       let access_token = (await this.login())["access_token"];
       let url = process.env.FAPI_add_goods;
       response = await axios.post(
@@ -122,39 +133,39 @@ class Fapi {
             "Content-Type": "application/json",
           },
         }
-      );
+      ).catch((e)=>{throw e});
       console.log(response.data);
+        this.logger(response);
       return response.data;
-    } catch (error) {
-      console.log(error);
-    }
+    
   }
   async ContractPreview(contractId) {
-    try {
+   
       let access_token = (await this.login())["access_token"];
       let url = process.env.FAPI_PREVIEW_CONTRACT;
-      let response = await axios.post(
-        url,
-        {
-          contractId,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${access_token}`,
-            "Content-Type": "application/json",
+      let response = await axios
+        .post(
+          url,
+          {
+            contractId,
           },
-        }
-      );
-      console.log(response.data);
-    } catch (error) {
-      console.log(error);
-    }
+          {
+            headers: {
+              Authorization: `Bearer ${access_token}`,
+              "Content-Type": "application/json",
+            },
+          }
+        )
+        .catch((e) => {
+          throw e;
+        });;
+     return response.data
   }
   async LoanPreview(contractId) {
-  
-      let access_token = (await this.login())["access_token"];
-      let url = process.env.FAPI_PREVIEW_LOAN;
-      let response = await axios.post(
+    let access_token = (await this.login())["access_token"];
+    let url = process.env.FAPI_PREVIEW_LOAN;
+    let response = await axios
+      .post(
         url,
         {
           contractId,
@@ -165,14 +176,15 @@ class Fapi {
             "Content-Type": "application/json",
           },
         }
-      ).catch((e)=>{throw e});
+      )
    
+      .catch((e) => {
+        throw e;
+      });
     
-      return response.data
- 
       
-       
-    
+    this.logger(response);
+    return response.data;
   }
   async sendLimitMessage(id, price) {
     try {
@@ -279,6 +291,28 @@ class Fapi {
     } catch (error) {
       console.log(error);
     }
+  }
+  logger(res) {
+    try {
+       fs.appendFileSync(
+         path.join(process.cwd(), "fapi_response.log"),
+         `${res.config.url}___${
+           res.config.method
+         }___${new Date()}____${JSON.stringify(res.data)}\n`
+       );
+       fs.appendFileSync(
+         path.join(process.cwd(), "fapi_request.log"),
+         `${res.request.url}___${
+           res.config.method
+         }___${new Date()}____${JSON.stringify(res.config.data)}\n`
+       );
+    
+    } catch (error) {
+      console.log(error);
+    }
+
+      return res;
+   
   }
 }
 

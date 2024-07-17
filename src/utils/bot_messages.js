@@ -1,4 +1,5 @@
 const axios =require("axios")
+const bot= require("../bot/bot")
 
 class BotMessages {
   constructor() {
@@ -35,32 +36,37 @@ class BotMessages {
     }
   }
   sendCancelInfo(zayavka, fillial, prichina) {
- let text =
-   "<b>" +
-   "ID : " +
-   zayavka.id +
-   "%0A" +
-   "PASSPORT : " +
-   zayavka.passport +
-   "%0A" +
-   "FULLNAME : " +
-   zayavka.fullname +
-   "%0A" +
-   "Dokon : " +
-   fillial.name
-     .replaceAll("-", " ")
+let text =
+  "🚫" +
+  "\n" +
+  "ID : " +
+  zayavka.id +
+  "\n"  +
+  "FULLNAME : " +
+  zayavka.fullname
+    .replaceAll("-", " ")
+    .replaceAll("'", " ")
+    .replaceAll("ʻ", "")
+    .replaceAll('"', "") +
+  "\n" +
+  "Dokon : " +
+  fillial.name
+    .replaceAll("-", " ")
+    .replaceAll("'", " ")
+    .replaceAll("ʻ", "")
+    .replaceAll('"', "") +
+  "\n";
+ "reason :" + (prichina ??  "TIMEOUT");
 
-     .replaceAll("'", " ")
-     .replaceAll("ʻ", "")
-     .replaceAll('"', "") +
-   "</b>";
+
       try{
  for (let chatid of this.chatids) {
-   let url = `https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendmessage?chat_id=${chatid}&text=${text}&parse_mode=HTML`;
-   axios
-     .post(url)
-     .then((res) => res)
-     .catch((err) => console.log(err));
+  //  let url = `https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendmessage?chat_id=${chatid}&text=${text}&parse_mode=HTML`;
+  //  axios
+  //    .post(url)
+  //    .then((res) => res)
+  //    .catch((err) => console.log(err));
+  bot.sendMessage(chatid, text);
  }
       }
       catch(e){
@@ -71,32 +77,32 @@ class BotMessages {
   sentScoringInfo(zayavka, fillial) {
     try{
 let text =
-  "<b>" +
-
+  "🚀🚀🚀" +
+  "\n" +
   "ID : " +
   zayavka.id +
-  "%0A" +
-   
+  "\n" +
   "PASSPORT : " +
   zayavka.passport +
-  "%0A" +
+  "\n" +
   "FULLNAME : " +
-  zayavka.fullname +
-  "%0A" +
-  "Dokon : " +
-  fillial.name
+  zayavka.fullname
     .replaceAll("-", " ")
-
     .replaceAll("'", " ")
     .replaceAll("ʻ", "")
     .replaceAll('"', "") +
-  "</b>";
+  "\n" +
+  "Dokon : " +
+  fillial.name
+    .replaceAll("-", " ")
+    .replaceAll("'", " ")
+    .replaceAll("ʻ", "")
+    .replaceAll('"', ""); 
+    
+  
  for (let chatid of this.chatids) {
-   let url = `https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendmessage?chat_id=${chatid}&text=${text}&parse_mode=HTML`;
-       axios
-         .post(url)
-         .then((res) => res)
-         .catch((err) => console.log(err));
+    bot.sendMessage(chatid, text);
+
  }
     }
     catch(error){

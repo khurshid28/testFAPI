@@ -1,7 +1,5 @@
 const jwt = require("../utils/jwt.js");
-const User = require("../models/User.js");
-const Super = require("../models/Super.js");
-const Admin = require("../models/Admin.js");
+
 
 const {
   AuthorizationError,
