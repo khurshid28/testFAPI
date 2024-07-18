@@ -41,7 +41,44 @@ class Myid {
           });
         console.log("success:");
         console.log(response2.data);
-        return res.status(200).json(response2.data);
+        if (response2.data.profile 
+          // prod
+          // && response2.data.result_code == 1
+          ) {
+          let userMyIdData = await new Promise((resolve, reject) => {
+            db.query(
+              `INSERT INTO MyId (response_id,pass_seriya,comparison_value,profile) VALUES ('${
+                response2.data.response_id
+              }', '${passport}','${
+                response2.data.comparison_value
+              }','${JSON.stringify(response2.data.profile).replaceAll(
+                `\^`,
+                ""
+              )}')`,
+              function (err, results, fields) {
+                if (err) {
+                  console.log("err >> ", err);
+                  resolve(null);
+                  // return null;
+                }
+                console.log("results >> ", results);
+                if (results) {
+                  resolve("success");
+                } else {
+                  resolve(null);
+                  // return null;
+                }
+              }
+            );
+          });
+
+          return res.status(response2.status).json(response2.data);
+        } else {
+          return next(
+            new InternalServerError(500, response2.data.result_note ?? "error")
+          );
+        }
+       
       } else if (base64) {
         console.log('aaa');
         var filePath = path.join(
@@ -130,7 +167,11 @@ class Myid {
             });
         }
         console.log('response2: ' + response2);
-         if (response2.data.profile && response2.data.result_code == 1) {
+         if (response2.data.profile 
+            // prod
+          // && response2.data.result_code == 1
+          
+          ) {
            let userMyIdData = await new Promise((resolve, reject) => {
              db.query(
                `INSERT INTO MyId (response_id,pass_seriya,comparison_value,profile) VALUES ('${

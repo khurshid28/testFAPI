@@ -25,7 +25,7 @@ class App {
     // await fapi.scoringCheck(result.data.contractId)
 
     // botMessage.sendCancelInfo('a',1,3)
-    botMessage.sentScoringInfo(1,2)
+    botMessage.sentScoringInfo(1, 2);
     try {
       let filepath = path.join(
         __dirname,
@@ -82,7 +82,8 @@ class App {
           }
         );
       });
-
+      console.log(myidData);
+      console.log("client ma'lumotlari topilmadi");
       if (!myidData) {
         return next(new NotFoundError(404, "client ma'lumotlari topilmadi"));
       }
@@ -155,7 +156,7 @@ class App {
       fullname = fullname.replaceAll("ʻ", "'");
       passport_by = passport_by.replaceAll("ʻ", "'");
       console.log(req.body);
-      
+
       let zayavka = await new Promise(function (resolve, reject) {
         db.query(
           `SELECT * from TestZayavka WHERE id=${req.body.id}`,
@@ -172,50 +173,47 @@ class App {
           }
         );
       });
-        let fillial = await new Promise(function (resolve, reject) {
-          db.query(
-            `SELECT * from fillial WHERE id=${zayavka.fillial_id}`,
-            function (err, results, fields) {
-              console.log(err);
-              if (err) {
-                resolve(null);
-                return null;
-              }
-              if (results.length != 0) {
-                resolve(results[0]);
-              } else {
-                resolve(null);
-              }
+      let fillial = await new Promise(function (resolve, reject) {
+        db.query(
+          `SELECT * from fillial WHERE id=${zayavka.fillial_id}`,
+          function (err, results, fields) {
+            console.log(err);
+            if (err) {
+              resolve(null);
+              return null;
             }
-          );
-        });
-            let result = await fapi.scoringSend(
-              phoneNumber,
-              zayavka.pinfl
-            );
+            if (results.length != 0) {
+              resolve(results[0]);
+            } else {
+              resolve(null);
+            }
+          }
+        );
+      });
+      let result = await fapi.scoringSend(phoneNumber, zayavka.pinfl);
 
-            botMessage.sentScoringInfo(zayavka, fillial);
-            if (result.code != 0) {
-              return next(new InternalServerError(500, result.message));
-            }
-            console.log(result);
+      botMessage.sentScoringInfo(zayavka, fillial);
+      if (result.code != 0) {
+        return next(new InternalServerError(500, result.message));
+      }
+      console.log(result);
 
       await new Promise(function (resolve, reject) {
         db.query(
           update2ZayavkaFunc(req.body),
-          
+
           [
-                2,
-                phoneNumber,
-                phoneNumber2,
-                cardNumber,
-                passport_date,
-                passport_by,
-                JSON.stringify(address),
-                region_id,
-                result.data.contractId,
-                id,
-              ],
+            2,
+            phoneNumber,
+            phoneNumber2,
+            cardNumber,
+            passport_date,
+            passport_by,
+            JSON.stringify(address),
+            region_id,
+            result.data.contractId,
+            id,
+          ],
           function (err, results, fields) {
             console.log(err);
             if (err) {
@@ -463,7 +461,6 @@ class App {
           update3ZayavkaFunc({
             ...req.body,
 
-          
             //   payment_amount: Math.floor(max_amount * (1 + val["percent"] / 100)),
           }),
           function (err, results, fields) {
@@ -680,41 +677,34 @@ class App {
         fillial.expired_months[arr.indexOf(`${req.body.expired_month}`)];
       console.log(val);
 
-         if (fillial.percent_type == "OUT") {
-           
-           await fapi.addGoods(
-             zayavkaOld.contractId,
-             zayavkaOld.scoringId,
+      if (fillial.percent_type == "OUT") {
+        await fapi.addGoods(
+          zayavkaOld.contractId,
+          zayavkaOld.scoringId,
 
-             Math.floor(zayavkaOld.amount * (1 + val["percent"] / 100) * 100),
-             zayavkaOld.products.map((item, i) => {
-               return {
-                 count: 1,
-                 name: item.name,
-                 price: Math.floor(
-                   item.price * (1 + val["percent"] / 100) * 100
-                 ),
-               };
-             })
-           );
-         } else {
-           await fapi.addGoods(
-             zayavkaOld.contractId,
-             zayavkaOld.scoringId,
-             Math.floor(req.body.payment_amount * 100),
-             zayavkaOld.products.map((item, i) => {
-               return {
-                 count: 1,
-                 name: item.name,
-                 price: Math.floor(item.price * 100),
-               };
-             })
-           );
-         }
-
-
-
-
+          Math.floor(zayavkaOld.amount * (1 + val["percent"] / 100) * 100),
+          zayavkaOld.products.map((item, i) => {
+            return {
+              count: 1,
+              name: item.name,
+              price: Math.floor(item.price * (1 + val["percent"] / 100) * 100),
+            };
+          })
+        );
+      } else {
+        await fapi.addGoods(
+          zayavkaOld.contractId,
+          zayavkaOld.scoringId,
+          Math.floor(req.body.payment_amount * 100),
+          zayavkaOld.products.map((item, i) => {
+            return {
+              count: 1,
+              name: item.name,
+              price: Math.floor(item.price * 100),
+            };
+          })
+        );
+      }
 
       if (fillial.percent_type == "OUT") {
         // console.log(Math.floor(req.body.payment_amount + 1) / 1000);
@@ -783,8 +773,6 @@ class App {
         );
       });
 
-   
-
       return res.status(200).json({
         data: zayavka,
         message: "Update 6 is done",
@@ -815,6 +803,7 @@ class App {
           }
         );
       });
+      await fapi.ContractSendCode(zayavka.contractId);
       return res.status(200).json({
         message: `code sent  to ${customhashPhoneNumber(zayavka.phoneNumber)}`,
       });
@@ -826,11 +815,11 @@ class App {
   async confirmDogovor(req, res, next) {
     try {
       let { id, code } = req.body;
-      if (code != "123123") {
-        return next(
-          new BadRequestError(400, "confirmation code not match !!!")
-        );
-      }
+      // if (code != "123123") {
+      //   return next(
+      //     new BadRequestError(400, "confirmation code not match !!!")
+      //   );
+      // }
       let zayavka = await new Promise(function (resolve, reject) {
         db.query(
           `SELECT * from TestZayavka WHERE id=${req.body.id}`,
@@ -848,7 +837,7 @@ class App {
           }
         );
       });
-
+      await fapi.ContractCodeConfirm(zayavka.contractId,code);
       return res.status(200).json({
         data: zayavka,
         message: "Confirm code Successfully",
@@ -860,7 +849,6 @@ class App {
   }
 
   async update7(req, res, next) {
-  
     try {
       // let { contractPdf, id, term } = req.body;
       // let date = new Date();
@@ -868,21 +856,62 @@ class App {
       //   date.getMonth() + 1
       // }-${date.getDate()}`;
       // console.log(singedAt);
-      
-      setTimeout(async()=>{
-         await new Promise(function (resolve, reject) {
-        db.query(
-          `update TestZayavka set contract_status="SUCCESS" WHERE id=${req.body.id}`,
-          function (err, results, fields) {
-            if (err) {
-              return resolve(null);
-              return null;
-            }
-            resolve(results);
+
+     
+
+      //
+
+     try {
+      for (let index = 0; index < 15; index++) {
+        let timer2 =  setTimeout(async () => {
+         let zayavka = await new Promise(function (resolve, reject) {
+           db.query(
+             `SELECT * from TestZayavka WHERE id=${req.body.id}`,
+             function (err, results, fields) {
+               if (err) {
+                 resolve(null);
+                 return null;
+               }
+               if (results.length != 0) {
+                 resolve(results[0]);
+               } else {
+                 resolve(null);
+               }
+             }
+           );
+         });
+          if(zayavka.contract_status == "LOAN_CREATED"){
+             clearTimeout(timer2);
+             return;
           }
-        );
-      });
-      },300*1000);
+ 
+           let result = await fapi.ContractInfo(zayavka.contractId);
+           console.log(result);
+           if(zayavka.contract_status == "LOAN_CREATED"){
+             await new Promise(function (resolve, reject) {
+               db.query(
+                 `UPDATE TestZayavka set contract_status='${result.data.state}' WHERE id=${id}`,
+                 function (err, results, fields) {
+                   if (err) {
+                     resolve(null);
+                     return null;
+                   } else if (results.length != 0) {
+                     return resolve(results[0]);
+                   } else {
+                     return resolve(null);
+                   }
+                 }
+               );
+             });
+          }
+          
+ 
+           clearTimeout(timer2);
+         }, (index   + 1 ) * 10000);
+       }
+     } catch (error) {
+      console.log(error);
+     }
       await new Promise(function (resolve, reject) {
         db.query(update7ZayavkaFunc(req.body), function (err, results, fields) {
           if (err) {
@@ -893,8 +922,6 @@ class App {
           resolve(results);
         });
       });
-
-
 
       let zayavka = await new Promise(function (resolve, reject) {
         db.query(
@@ -924,161 +951,158 @@ class App {
   }
 
   async updateFinish(req, res, next) {
-
-    console.log('update finish');
-     let { code, base64,id } = req.body;
-     console.log(req.body)
+    console.log("update finish");
+    let { code, base64, id } = req.body;
+    console.log(req.body);
     try {
-      
-       let zayavka = await new Promise(function (resolve, reject) {
-         db.query(
-           `SELECT * from TestZayavka WHERE id=${req.body.id}`,
-           function (err, results, fields) {
-             console.log(err);
-             if (err) {
-               resolve(null);
-               return null;
-             }
-             if (results.length != 0) {
-               resolve(results[0]);
-             } else {
-               resolve(null);
-             }
-           }
-         );
-       });
-       console.log(">>>>>>>>>>>>>>>>>");
+      let zayavka = await new Promise(function (resolve, reject) {
+        db.query(
+          `SELECT * from TestZayavka WHERE id=${req.body.id}`,
+          function (err, results, fields) {
+            console.log(err);
+            if (err) {
+              resolve(null);
+              return null;
+            }
+            if (results.length != 0) {
+              resolve(results[0]);
+            } else {
+              resolve(null);
+            }
+          }
+        );
+      });
+      console.log(">>>>>>>>>>>>>>>>>");
 
-      if(zayavka.contract_status != "SUCCESS"){
-        return next( new BadRequestError(400,"The contract was not confirned !"))
+      if (zayavka.contract_status != "SUCCESS") {
+        return next(
+          new BadRequestError(400, "The contract was not confirned !")
+        );
       }
-       console.log("code: " + code);
+      console.log("code: " + code);
 
-       const loginData = await Fapi.login();
-       let access_token = loginData["access_token"];
-       if (code) {
-         let url2 = process.env.FAPI_MYID_SDK + "?code=" + code;
-         console.log("access_token " + access_token);
-         let response2 = await axios
-           .get(
-             url2,
+      const loginData = await Fapi.login();
+      let access_token = loginData["access_token"];
+      if (code) {
+        let url2 = process.env.FAPI_MYID_SDK + "?code=" + code;
+        console.log("access_token " + access_token);
+        let response2 = await axios
+          .get(
+            url2,
 
-             {
-               headers: {
-                 Authorization: "Bearer " + access_token,
-               },
-             }
-           )
-           .then((r) => r)
-           .catch((err) => {
-             throw err;
-           });
-           console.log(response2.data)
+            {
+              headers: {
+                Authorization: "Bearer " + access_token,
+              },
+            }
+          )
+          .then((r) => r)
+          .catch((err) => {
+            throw err;
+          });
+        console.log(response2.data);
 
-           // in prod
+        // in prod
 
-            //  if (!response2.data.profile || response2.data.result_code != 1) {
-            //    return next(
-            //      new BadRequestError(400, response2.data.result_note ?? "error")
-            //    );
-            //  } 
+        //  if (!response2.data.profile || response2.data.result_code != 1) {
+        //    return next(
+        //      new BadRequestError(400, response2.data.result_note ?? "error")
+        //    );
+        //  }
 
-         console.log("success:");
-         console.log(response2.data);
+        console.log("success:");
+        console.log(response2.data);
         //  return res.status(200).json(response2.data);
-       } else if (base64) {
-         console.log("aaa");
-         var filePath = path.join(
-           __dirname,
-           "..",
-           "..",
-           "public",
-           "myidconfirm",
-           `${req.body.passport}.png`
-         );
-         console.log(filePath);
-         let newBase64 = await base64_decode(base64, filePath);
-         let url1 = process.env.FAPI_MYID_JOB_ID;
-         let url2 = process.env.FAPI_MYID_PROFILE;
-         let client_id = process.env.FAPI_MYID_CLIENT_ID;
+      } else if (base64) {
+        console.log("aaa");
+        var filePath = path.join(
+          __dirname,
+          "..",
+          "..",
+          "public",
+          "myidconfirm",
+          `${req.body.passport}.png`
+        );
+        console.log(filePath);
+        let newBase64 = await base64_decode(base64, filePath);
+        let url1 = process.env.FAPI_MYID_JOB_ID;
+        let url2 = process.env.FAPI_MYID_PROFILE;
+        let client_id = process.env.FAPI_MYID_CLIENT_ID;
 
-         const response1 = await axios
-           .post(
-             url1,
-             {
-               pass_data: zayavka.passport,
-               birth_date: zayavka.birth_date,
-               client_id: client_id,
-          
-               photo_from_camera: {
-                 front: newBase64,
-               },
-               threshold: 0.5,
-               agreed_on_terms: true,
-               is_resident: true,
-             },
-             {
-               headers: {
-                 // "Content-Type": "application/x-www-form-urlencoded",
-                 "Content-Type": "application/json",
-               },
-             }
-           )
-           .then((r) => r)
-           .catch((err) => {
-             throw err;
-           });
+        const response1 = await axios
+          .post(
+            url1,
+            {
+              pass_data: zayavka.passport,
+              birth_date: zayavka.birth_date,
+              client_id: client_id,
 
-         // console.log(response1);
-         let job_id = response1.data["job_id"];
-         let response2 = await axios
-           .get(
-             url2 + "?job_id=" + job_id,
+              photo_from_camera: {
+                front: newBase64,
+              },
+              threshold: 0.5,
+              agreed_on_terms: true,
+              is_resident: true,
+            },
+            {
+              headers: {
+                // "Content-Type": "application/x-www-form-urlencoded",
+                "Content-Type": "application/json",
+              },
+            }
+          )
+          .then((r) => r)
+          .catch((err) => {
+            throw err;
+          });
 
-             {
-               headers: {
-                 Authorization: "Bearer " + access_token,
-               },
-             }
-           )
-           .then((r) => r)
-           .catch((err) => {
-             throw err;
-           });
+        // console.log(response1);
+        let job_id = response1.data["job_id"];
+        let response2 = await axios
+          .get(
+            url2 + "?job_id=" + job_id,
 
-         while (response2.status != 200) {
-           response2 = await axios
-             .post(
-               url2,
-               "",
-               {
-                 headers: {
-                   Authorization: `Bearer ${access_token}`,
-                   // 'Content-Type': 'application/json',
-                   "Content-Type": "text/plain",
+            {
+              headers: {
+                Authorization: "Bearer " + access_token,
+              },
+            }
+          )
+          .then((r) => r)
+          .catch((err) => {
+            throw err;
+          });
 
-                   responseType: "json",
-                   responseEncoding: "utf8",
-                 },
-               },
-               {}
-             )
-             .then((r) => r)
-             .catch((err) => {
-               throw err;
-             });
-         }
-         console.log("response2: " + response2);
-         //in prod
+        while (response2.status != 200) {
+          response2 = await axios
+            .post(
+              url2,
+              "",
+              {
+                headers: {
+                  Authorization: `Bearer ${access_token}`,
+                  // 'Content-Type': 'application/json',
+                  "Content-Type": "text/plain",
+
+                  responseType: "json",
+                  responseEncoding: "utf8",
+                },
+              },
+              {}
+            )
+            .then((r) => r)
+            .catch((err) => {
+              throw err;
+            });
+        }
+        console.log("response2: " + response2);
+        //in prod
         //  if ( !response2.data.profile || response2.data.result_code  !=1) {
         //    return next(
         //      new BadRequestError(400, response2.data.result_note ?? "error")
         //    );
-        //  } 
-       }
-
-
-
+        //  }
+      }
 
       console.log(">>>>> update finish");
       console.log(req.body);
@@ -1097,23 +1121,23 @@ class App {
         );
       });
 
-     let Updatedzayavka = await new Promise(function (resolve, reject) {
-       db.query(
-         `SELECT * from TestZayavka WHERE id=${req.body.id}`,
-         function (err, results, fields) {
-           console.log(err);
-           if (err) {
-             resolve(null);
-             return null;
-           }
-           if (results.length != 0) {
-             resolve(results[0]);
-           } else {
-             resolve(null);
-           }
-         }
-       );
-     });
+      let Updatedzayavka = await new Promise(function (resolve, reject) {
+        db.query(
+          `SELECT * from TestZayavka WHERE id=${req.body.id}`,
+          function (err, results, fields) {
+            console.log(err);
+            if (err) {
+              resolve(null);
+              return null;
+            }
+            if (results.length != 0) {
+              resolve(results[0]);
+            } else {
+              resolve(null);
+            }
+          }
+        );
+      });
       console.log(">>>> finish");
       console.log("Updatedzayavka:", Updatedzayavka);
       return res.status(200).json({
@@ -1125,9 +1149,9 @@ class App {
       return next(new InternalServerError(500, error));
     }
   }
-async Loan(req,res,next){
-  const id = req.params.id
-  try {
+  async Loan(req, res, next) {
+    const id = req.params.id;
+    try {
       let zayavka = await new Promise(function (resolve, reject) {
         db.query(
           `SELECT * from TestZayavka WHERE id=${id}`,
@@ -1145,22 +1169,29 @@ async Loan(req,res,next){
         );
       });
       let result = await fapi.LoanPreview(zayavka.contractId);
-    
-       res.contentType("application/pdf");
+      let newFilePath = path.join(
+        __dirname,
+        "../",
+        "../",
+        "public",
+        "graphs",
+        `graph-${id}.pdf`
+      );
 
-       res.setHeader(
-         "Content-Disposition",
-         `attachment; filename=graph-${id}.pdf`
-       );
+      const file = fs.writeFileSync(newFilePath, result, { encoding: "utf8" });
+      res.contentType("application/pdf");
 
-       return res.send(result);
-     
-  } catch (error) {
-    console.log(error);
-    return next(new InternalServerError(500,error))
+      res.setHeader(
+        "Content-Disposition",
+        `attachment; filename=graph-${id}.pdf`
+      );
+
+      return res.send(result);
+    } catch (error) {
+      console.log(error);
+      return next(new InternalServerError(500, error));
+    }
   }
-
-}
   async cancel_by_client(req, res, next) {
     try {
       await new Promise(function (resolve, reject) {
@@ -1235,6 +1266,23 @@ async Loan(req,res,next){
   async getAll(req, res, next) {
     try {
       let zayavkalar;
+      let zayavka = await new Promise(function (resolve, reject) {
+        db.query(
+          `SELECT * from TestZayavka WHERE id=11`,
+          function (err, results, fields) {
+            if (err) {
+              resolve(null);
+              return null;
+            }
+            if (results.length != 0) {
+              resolve(results[0]);
+            } else {
+              resolve(null);
+            }
+          }
+        );
+      });
+      //  console.log(await fapi.ContractInfo(zayavka.contractId));
 
       if (req.user.role === "User") {
         zayavkalar = await new Promise(function (resolve, reject) {
@@ -1401,6 +1449,43 @@ async Loan(req,res,next){
           }
         );
       });
+      if(zayavka.contract_status =="LOAN_CREATING" && zayavka.step==7 ){
+        let result = await fapi.ContractInfo(zayavka.contractId);
+        await new Promise(function (resolve, reject) {
+          db.query(
+            `UPDATE TestZayavka set contract_status='${result.data.state}' WHERE id=${id}`,
+            function (err, results, fields) {
+              if (err) {
+                resolve(null);
+                return null;
+              } else if (results.length != 0) {
+                return resolve(results[0]);
+              } else {
+                return resolve(null);
+              }
+            }
+          );
+        });
+        zayavka= await new Promise(function (resolve, reject) {
+          db.query(
+            `SELECT * from TestZayavka WHERE id=${id}`,
+            function (err, results, fields) {
+              if (err) {
+                resolve(null);
+                return null;
+              } else if (results.length != 0) {
+                return resolve(results[0]);
+              } else {
+                return resolve(null);
+              }
+            }
+          );
+        });
+        return res.status(200).json({
+          data: zayavka,
+        });
+
+      }
 
       if (zayavka) {
         return res.status(200).json({
@@ -1754,14 +1839,13 @@ function update2ZayavkaFunc(data) {
     passport_date,
     address,
     region_id,
-    contractId
+    contractId,
   } = data;
 
   // passport_by = passport_by.replaceAll("ʻ", "'");
   // address = address.replaceAll("ʻ", "'");
 
-    return `UPDATE TestZayavka SET step=?,phoneNumber=?,phoneNumber2=?,cardNumber=?,passport_date=?,passport_by=?,address=?,region_id=?,contractId=? WHERE id = ?`;
- 
+  return `UPDATE TestZayavka SET step=?,phoneNumber=?,phoneNumber2=?,cardNumber=?,passport_date=?,passport_by=?,address=?,region_id=?,contractId=? WHERE id = ?`;
 }
 function update3ZayavkaFunc(data) {
   let { id, max_amount, payment_amount } = data;

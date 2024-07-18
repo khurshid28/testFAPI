@@ -33,16 +33,16 @@ class Fapi {
       )
       .catch((e) => {
         throw e;
-      });;
+      });
     console.log("logged");
-     this.logger(response1);
+    this.logger(response1);
     return response1.data;
   }
   async sendSms(phoneNumber, text) {
-  
-      let access_token = (await this.login())["access_token"];
-      let url = process.env.FAPI_SMS_URL;
-      let response = await axios.post(
+    let access_token = (await this.login())["access_token"];
+    let url = process.env.FAPI_SMS_URL;
+    let response = await axios
+      .post(
         url,
         {
           recipient: phoneNumber,
@@ -54,72 +54,73 @@ class Fapi {
             "Content-Type": "application/json",
           },
         }
-      ).catch((e)=>{throw e});;
-      console.log(response.data);
-       this.logger(response);
-    
+      )
+      .catch((e) => {
+        throw e;
+      });
+    console.log(response.data);
+    this.logger(response);
   }
   async scoringSend(phoneNumber, pinfl) {
     let response;
-   
-      let access_token = (await this.login())["access_token"];
-      let url = process.env.FAPI_scoring_send;
-      response = await axios
-        .post(
-          url,
-          {
-            buyerPinfl: pinfl,
-            buyerPhone: phoneNumber,
-            totalAmount: 50000000,
-            contractDate: formattedDate(),
+
+    let access_token = (await this.login())["access_token"];
+    let url = process.env.FAPI_scoring_send;
+    response = await axios
+      .post(
+        url,
+        {
+          buyerPinfl: pinfl,
+          buyerPhone: phoneNumber,
+          totalAmount: 50000000,
+          contractDate: formattedDate(),
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${access_token}`,
+            "Content-Type": "application/json",
           },
-          {
-            headers: {
-              Authorization: `Bearer ${access_token}`,
-              "Content-Type": "application/json",
-            },
-          }
-        )
-        .catch((e) => {
-          throw e;
-        });;
-      console.log(response.data);
-        this.logger(response);
-      return response.data;
-   
+        }
+      )
+      .catch((e) => {
+        throw e;
+      });
+    console.log(response.data);
+    this.logger(response);
+    return response.data;
   }
   async scoringCheck(contractId) {
     let response;
 
-      let access_token = (await this.login())["access_token"];
-      let url = process.env.FAPI_scoring_check;
-      response = await axios
-        .post(
-          url,
-          {
-            contractId,
+    let access_token = (await this.login())["access_token"];
+    let url = process.env.FAPI_scoring_check;
+    response = await axios
+      .post(
+        url,
+        {
+          contractId,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${access_token}`,
+            "Content-Type": "application/json",
           },
-          {
-            headers: {
-              Authorization: `Bearer ${access_token}`,
-              "Content-Type": "application/json",
-            },
-          }
-        )
-        .catch((e) => {
-          throw e;
-        });;
-      console.log(response.data);
-      this.logger(response)
-      return response.data;
-    
+        }
+      )
+      .catch((e) => {
+        throw e;
+      });
+    console.log(response.data);
+    this.logger(response);
+    return response.data;
   }
   async addGoods(contractId, scoringId, amount, products) {
     let response;
-   
-      let access_token = (await this.login())["access_token"];
-      let url = process.env.FAPI_add_goods;
-      response = await axios.post(
+
+    let access_token = (await this.login())["access_token"];
+    let url = process.env.FAPI_add_goods;
+    response = await axios
+      .post(
         url,
         {
           contractId: contractId,
@@ -133,33 +134,34 @@ class Fapi {
             "Content-Type": "application/json",
           },
         }
-      ).catch((e)=>{throw e});
-      console.log(response.data);
-        this.logger(response);
-      return response.data;
-    
+      )
+      .catch((e) => {
+        throw e;
+      });
+    console.log(response.data);
+    this.logger(response);
+    return response.data;
   }
   async ContractPreview(contractId) {
-   
-      let access_token = (await this.login())["access_token"];
-      let url = process.env.FAPI_PREVIEW_CONTRACT;
-      let response = await axios
-        .post(
-          url,
-          {
-            contractId,
+    let access_token = (await this.login())["access_token"];
+    let url = process.env.FAPI_PREVIEW_CONTRACT;
+    let response = await axios
+      .post(
+        url,
+        {
+          contractId,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${access_token}`,
+            "Content-Type": "application/json",
           },
-          {
-            headers: {
-              Authorization: `Bearer ${access_token}`,
-              "Content-Type": "application/json",
-            },
-          }
-        )
-        .catch((e) => {
-          throw e;
-        });;
-     return response.data
+        }
+      )
+      .catch((e) => {
+        throw e;
+      });
+    return response.data;
   }
   async LoanPreview(contractId) {
     let access_token = (await this.login())["access_token"];
@@ -177,12 +179,11 @@ class Fapi {
           },
         }
       )
-   
+
       .catch((e) => {
         throw e;
       });
-    
-      
+
     this.logger(response);
     return response.data;
   }
@@ -294,26 +295,97 @@ class Fapi {
   }
   logger(res) {
     try {
-       fs.appendFileSync(
-         path.join(process.cwd(), "fapi_response.log"),
-         `${res.config.url}___${
-           res.config.method
-         }___${new Date()}____${JSON.stringify(res.data)}\n`
-       );
-       fs.appendFileSync(
-         path.join(process.cwd(), "fapi_request.log"),
-         `${res.request.url}___${
-           res.config.method
-         }___${new Date()}____${JSON.stringify(res.config.data)}\n`
-       );
-    
+      fs.appendFileSync(
+        path.join(process.cwd(), "fapi_response.log"),
+        `${res.config.url}___${
+          res.config.method
+        }___${new Date()}____${JSON.stringify(res.data)}\n`
+      );
+      fs.appendFileSync(
+        path.join(process.cwd(), "fapi_request.log"),
+        `${res.request.url}___${
+          res.config.method
+        }___${new Date()}____${JSON.stringify(res.config.data)}\n`
+      );
     } catch (error) {
       console.log(error);
     }
 
-      return res;
-   
+    return res;
   }
+
+  async ContractSendCode(contractId) {
+    let access_token = (await this.login())["access_token"];
+    let url = process.env.FAPI_CONTRACT_SEND_CODE;
+    let response = await axios
+      .post(
+        url,
+        {
+          contractId,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${access_token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .catch((e) => {
+        console.log(e);
+        throw e;
+      });
+    return response.data;
+  }
+
+  async ContractCodeConfirm(contractId,code) {
+    let access_token = (await this.login())["access_token"];
+    let url = process.env.FAPI_CONTRACT_CONFIRM_CODE;
+    let response = await axios
+      .post(
+        url,
+        {
+          contractId,
+          code,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${access_token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .catch((e) => {
+        throw e;
+      });
+    return response.data;
+  }
+
+
+  async ContractInfo(contractId) {
+    let access_token = (await this.login())["access_token"];
+    let url = process.env.FAPI_CONTARCT_INFO;
+    let response = await axios
+      .post(
+        url,
+        {
+          contractId,
+         
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${access_token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .catch((e) => {
+        throw e;
+      });
+    return response.data;
+  }
+
+
+
 }
 
 function toMoney(number) {
