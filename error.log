@@ -534,3 +534,25 @@ Require stack:
 /api/v3/zayavka/getAll/___GET___1721241121660___InternalServerError___AxiosError: timeout of 10000ms exceeded
 /api/v3/zayavka/getAll/___GET___1721241126848___InternalServerError___AxiosError: timeout of 10000ms exceeded
 /api/v3/myid___POST___1721280542676___InternalServerError___Myid image error
+/api/v3/zayavka/update/finish/___POST___1721397645252___InternalServerError___AxiosError: Request failed with status code 415
+/api/v3/zayavka/update/finish/___POST___1721397773799___InternalServerError___AxiosError: Request failed with status code 415
+/api/v3/zayavka/update/finish/___POST___1721397820599___InternalServerError___AxiosError: Request failed with status code 415
+/api/v3/zayavka/update/finish/___POST___1721398200964___InternalServerError___AxiosError: Request failed with status code 400
+/api/v3/zayavka/update/finish/___POST___1721398317139___InternalServerError___AxiosError: Request failed with status code 415
+/api/v3/zayavka/update/finish/___POST___1721398404848___InternalServerError___AxiosError: Request failed with status code 415
+/api/v3/zayavka/update/finish/___POST___1721398602564___InternalServerError___AxiosError: Request failed with status code 400
+/api/v3/zayavka/update/finish/___POST___1721398628561___InternalServerError___AxiosError: Request failed with status code 400
+/api/v3/zayavka/update/finish/___POST___1721398673910___InternalServerError___AxiosError: Request failed with status code 400
+/api/v3/zayavka/update/finish/___POST___1721398720563___InternalServerError___AxiosError: Request failed with status code 400
+/api/v3/zayavka/update/finish/___POST___1721398977364___InternalServerError___AxiosError: Request failed with status code 400
+/api/v3/zayavka/update/finish/___POST___1721399080103___InternalServerError___AxiosError: Request failed with status code 500
+/api/v3/zayavka/loan/11___GET___1721400236855___InternalServerError___TypeError: result.arrayBuffer is not a function
+/api/v3/zayavka/loan/11___GET___1721400448391___InternalServerError___TypeError: pdfRespone.arrayBuffer is not a function
+/api/v3/zayavka/loan/11___GET___1721400453288___InternalServerError___TypeError: pdfRespone.arrayBuffer is not a function
+/api/v3/zayavka/loan/11___GET___1721400497493___InternalServerError___TypeError: pdfRespone.arrayBuffer is not a function
+/api/v3/zayavka/loan/11___GET___1721400594866___InternalServerError___Error: EBUSY: resource busy or locked, open 'C:\Users\JONIBEK\Desktop\test_fapi_server\testFAPI\public\graphs\graph-11.pdf'
+/api/v3/zayavka/loan/11___GET___1721401009541___InternalServerError___TypeError: result.pipe is not a function
+/api/v3/zayavka/loan/11___GET___1721401013813___InternalServerError___TypeError: result.pipe is not a function
+/api/v3/zayavka/loan/11?authorization=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImFnZW50IjoiRGFydC8zLjMgKGRhcnQ6aW8pIiwicm9sZSI6IlVzZXIiLCJpYXQiOjE3MjEzNTM5ODUsImV4cCI6MTcyMTQ0MDM4NX0.dZJYJmQIeqcoFJE1NqKX2lO0L6Uk7wtjlMQomNuLbpM___GET___1721401314716___InternalServerError___Error: EBUSY: resource busy or locked, open 'C:\Users\JONIBEK\Desktop\test_fapi_server\testFAPI\public\graphs\graph-11.pdf'
+/api/v3/zayavka/loan/11?authorization=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImFnZW50IjoiRGFydC8zLjMgKGRhcnQ6aW8pIiwicm9sZSI6IlVzZXIiLCJpYXQiOjE3MjEzNTM5ODUsImV4cCI6MTcyMTQ0MDM4NX0.dZJYJmQIeqcoFJE1NqKX2lO0L6Uk7wtjlMQomNuLbpM___GET___1721401324032___InternalServerError___Error: EBUSY: resource busy or locked, open 'C:\Users\JONIBEK\Desktop\test_fapi_server\testFAPI\public\graphs\graph-11.pdf'
+/api/v3/zayavka/loan/11___GET___1721401357059___InternalServerError___Error: EBUSY: resource busy or locked, open 'C:\Users\JONIBEK\Desktop\test_fapi_server\testFAPI\public\graphs\graph-11.pdf'

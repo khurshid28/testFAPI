@@ -173,7 +173,9 @@ class Fapi {
           contractId,
         },
         {
+          responseType: 'arraybuffer',
           headers: {
+            
             Authorization: `Bearer ${access_token}`,
             "Content-Type": "application/json",
           },
@@ -379,6 +381,30 @@ class Fapi {
         }
       )
       .catch((e) => {
+        throw e;
+      });
+    return response.data;
+  }
+
+  async ContractFinish(contractId,image,MyIdInfo) {
+    let access_token = (await this.login())["access_token"];
+    let url = process.env.FAPI_CONTARCT_FINISH;
+    let response = await axios
+      .post(
+        url,
+        {
+          contractId,image,MyIdInfo
+        },
+        {
+          headers: {
+            
+            Authorization: `Bearer ${access_token}`,
+            "Content-Type":"multipart/form-data"
+          },
+        }
+      )
+      .catch((e) => {
+        
         throw e;
       });
     return response.data;

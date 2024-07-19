@@ -17,6 +17,7 @@ const puppeteer = require("puppeteer");
 let mime = require("mime");
 const pdf_generate = require("../utils/pdf_generate");
 const fapi = require("../utils/fapi");
+let moment =require("moment")
 
 const resizeImg = require("resize-image-buffer");
 class App {
@@ -974,13 +975,13 @@ class App {
       });
       console.log(">>>>>>>>>>>>>>>>>");
 
-      if (zayavka.contract_status != "SUCCESS") {
+      if (zayavka.contract_status != "LOAN_CREATED") {
         return next(
           new BadRequestError(400, "The contract was not confirned !")
         );
       }
       console.log("code: " + code);
-
+      let jobId;
       const loginData = await Fapi.login();
       let access_token = loginData["access_token"];
       if (code) {
@@ -1058,6 +1059,8 @@ class App {
 
         // console.log(response1);
         let job_id = response1.data["job_id"];
+        jobId = job_id
+        
         let response2 = await axios
           .get(
             url2 + "?job_id=" + job_id,
@@ -1103,9 +1106,15 @@ class App {
         //    );
         //  }
       }
-
+     
       console.log(">>>>> update finish");
       console.log(req.body);
+      var date = new Date();
+     let dateStr= moment(date).format('YYYY-MM-DD HH:mm:ss');
+      let MyIdinfo  ="myidinfo "+ (code ?  `code : ${code}` :`job-id :${jobId}`)+" " + dateStr;
+      let base64Image = base64.split(";base64,")[1];
+      var image_bitmap = Buffer.from(base64Image.toString(), "base64");
+      await fapi.ContractFinish(zayavka.contractId,image_bitmap, MyIdinfo);
       await new Promise(function (resolve, reject) {
         db.query(
           updateFinishZayavkaFunc(req.body),
@@ -1145,7 +1154,7 @@ class App {
         message: "Update finish  is done Successfully",
       });
     } catch (error) {
-      console.log(error.message);
+      console.log(error);
       return next(new InternalServerError(500, error));
     }
   }
@@ -1178,7 +1187,7 @@ class App {
         `graph-${id}.pdf`
       );
 
-      const file = fs.writeFileSync(newFilePath, result, { encoding: "utf8" });
+      const file = fs.writeFileSync(newFilePath, result,{encoding:"utf8"} );
       res.contentType("application/pdf");
 
       res.setHeader(
