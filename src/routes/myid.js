@@ -29,7 +29,7 @@ const router = Router();
 
 router.post("/image",upload, myidController.imageGetMe);
 router.post("/check", myidController.check);
-router.post("/", myidController.getMe);
+router.post("/",myIdMiddleware, myidController.getMe);
 router.get("/base64/:passport", myidController.base64);
 
 

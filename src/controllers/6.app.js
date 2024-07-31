@@ -68,7 +68,7 @@ class App {
       req.body.fillial_id = user.fillial_id;
       let myidData = await new Promise(function (resolve, reject) {
         db.query(
-          `SELECT * from MyId WHERE pass_seriya='${passport}'`,
+          `SELECT * from MyId WHERE pass_seriya='${passport}' desc`,
           function (err, results, fields) {
             console.log(err);
             if (err) {
@@ -174,6 +174,7 @@ class App {
           }
         );
       });
+      
       let fillial = await new Promise(function (resolve, reject) {
         db.query(
           `SELECT * from fillial WHERE id=${zayavka.fillial_id}`,
@@ -191,13 +192,54 @@ class App {
           }
         );
       });
-      let result = await fapi.scoringSend(phoneNumber, zayavka.pinfl);
+       let myIddata = await new Promise(function (resolve, reject) {
+         db.query(
+           `SELECT * from MyId WHERE pass_seriya=${zayavka.passport}  desc`,
+           function (err, results, fields) {
+             console.log(err);
+             if (err) {
+               resolve(null);
+               return null;
+             }
+             if (results.length != 0) {
+               resolve(results[0]);
+             } else {
+               resolve(null);
+             }
+           }
+         );
+       });
+       if(myIddata.profile.address.permanent_address.region_id_cbu=='03'){
+            await new Promise(function (resolve, reject) {
+              db.query(
+                `update TestZayavka set status='canceled_by_scoring' ,canceled_reason='Место рождения клиента блокирован банком' where id=${id}`,
+                function (err, results, fields) {
+                  console.log(err);
+                  if (err) {
+                    resolve(null);
+                    return null;
+                  }
 
-      botMessage.sentScoringInfo(zayavka, fillial);
-      if (result.code != 0) {
-        return next(new InternalServerError(500, result.message));
-      }
-      console.log(result);
+                  resolve(results);
+                }
+              );
+            });
+       }
+       else{
+               const job_id = myIddata.response_id;
+               let result = await fapi.scoringSend(
+                 phoneNumber,
+                 zayavka.pinfl,
+                 job_id
+               );
+
+               botMessage.sentScoringInfo(zayavka, fillial);
+               if (result.code != 0) {
+                 return next(new InternalServerError(500, result.message));
+               }
+               console.log(result);
+       }
+
 
       await new Promise(function (resolve, reject) {
         db.query(

@@ -556,3 +556,7 @@ Require stack:
 /api/v3/zayavka/loan/11?authorization=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImFnZW50IjoiRGFydC8zLjMgKGRhcnQ6aW8pIiwicm9sZSI6IlVzZXIiLCJpYXQiOjE3MjEzNTM5ODUsImV4cCI6MTcyMTQ0MDM4NX0.dZJYJmQIeqcoFJE1NqKX2lO0L6Uk7wtjlMQomNuLbpM___GET___1721401314716___InternalServerError___Error: EBUSY: resource busy or locked, open 'C:\Users\JONIBEK\Desktop\test_fapi_server\testFAPI\public\graphs\graph-11.pdf'
 /api/v3/zayavka/loan/11?authorization=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImFnZW50IjoiRGFydC8zLjMgKGRhcnQ6aW8pIiwicm9sZSI6IlVzZXIiLCJpYXQiOjE3MjEzNTM5ODUsImV4cCI6MTcyMTQ0MDM4NX0.dZJYJmQIeqcoFJE1NqKX2lO0L6Uk7wtjlMQomNuLbpM___GET___1721401324032___InternalServerError___Error: EBUSY: resource busy or locked, open 'C:\Users\JONIBEK\Desktop\test_fapi_server\testFAPI\public\graphs\graph-11.pdf'
 /api/v3/zayavka/loan/11___GET___1721401357059___InternalServerError___Error: EBUSY: resource busy or locked, open 'C:\Users\JONIBEK\Desktop\test_fapi_server\testFAPI\public\graphs\graph-11.pdf'
+/api/v3/myid/___POST___1722324858448___InternalServerError___AxiosError: Request failed with status code 401
+/api/v3/myid/___POST___1722330146800___InternalServerError___AxiosError: Request failed with status code 400
+/api/v3/myid/___POST___1722330383696___InternalServerError___AxiosError: Request failed with status code 400
+/api/v3/myid/___POST___1722330534730___InternalServerError___AxiosError: Request failed with status code 400

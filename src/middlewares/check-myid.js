@@ -11,25 +11,27 @@ let db = require("../config/db");
 
 module.exports = async (req, res, next) => {
   try {
-    console.log(req.body);
+    console.log('middlware');
+    // console.log(req.body);
     let myIdData = await new Promise(function (resolve, reject) {
       db.query(
         `Select * from MyId WHERE pass_seriya='${req.body.passport}' and Date(now()) < Date(created_day + INTERVAL 1 YEAR)`,
         function (err, results, fields) {
           if (err) {
+            console.log('error',err);
             resolve(null);
             return null;
           }
           // console.log("++++", results);
           if (results.length != 0) {
-            resolve(results[0]);
+            resolve(results[results.length-1]);
           } else {
             resolve(null);
           }
         }
       );
     });
-
+    // console.log('myid data:',myIdData);
     if (!myIdData) {
       return next();
     }

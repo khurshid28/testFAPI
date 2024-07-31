@@ -61,7 +61,7 @@ class Fapi {
     console.log(response.data);
     this.logger(response);
   }
-  async scoringSend(phoneNumber, pinfl) {
+  async scoringSend(phoneNumber, pinfl,job_id) {
     let response;
 
     let access_token = (await this.login())["access_token"];
@@ -74,6 +74,7 @@ class Fapi {
           buyerPhone: phoneNumber,
           totalAmount: 50000000,
           contractDate: formattedDate(),
+          job_id,
         },
         {
           headers: {
