@@ -68,7 +68,7 @@ class App {
       req.body.fillial_id = user.fillial_id;
       let myidData = await new Promise(function (resolve, reject) {
         db.query(
-          `SELECT * from MyId WHERE pass_seriya='${passport}' desc`,
+          `SELECT * from MyId WHERE pass_seriya='${passport}'`,
           function (err, results, fields) {
             console.log(err);
             if (err) {
@@ -76,7 +76,7 @@ class App {
               return null;
             }
             if (results.length != 0) {
-              resolve(results[0]);
+              resolve(results[results.length-1]);
             } else {
               resolve(null);
             }
@@ -194,7 +194,7 @@ class App {
       });
        let myIddata = await new Promise(function (resolve, reject) {
          db.query(
-           `SELECT * from MyId WHERE pass_seriya=${zayavka.passport}  desc`,
+           `SELECT * from MyId WHERE pass_seriya='${zayavka.passport}' `,
            function (err, results, fields) {
              console.log(err);
              if (err) {
@@ -202,7 +202,7 @@ class App {
                return null;
              }
              if (results.length != 0) {
-               resolve(results[0]);
+               resolve(results[results.length-1]);
              } else {
                resolve(null);
              }
@@ -227,6 +227,7 @@ class App {
        }
        else{
                const job_id = myIddata.response_id;
+               
                let result = await fapi.scoringSend(
                  phoneNumber,
                  zayavka.pinfl,
@@ -255,6 +256,7 @@ class App {
             JSON.stringify(address),
             region_id,
             result.data.contractId,
+           
             id,
           ],
           function (err, results, fields) {
@@ -1230,6 +1232,7 @@ class App {
       );
 
       const file = fs.writeFileSync(newFilePath, result,{encoding:"utf8"} );
+       
       res.contentType("application/pdf");
 
       res.setHeader(
